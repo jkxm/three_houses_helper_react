@@ -7,17 +7,18 @@ class Teammate extends React.Component {
       super();
     }
 
-    // removeTeammate(unit){
-    //   this.props.removeTeammate(unit);
-    // }
-
-    removeTeammate = (unitname) => {
-      this.props.removeTeammate(unitname);
+    removeTeammate(unit){
+      this.props.removeTeammate(unit);
     }
+
+    changeHilightedUnit(unit){
+      this.props.changeHilightedUnit(unit);
+    }
+
     render() {
       var unitname = this.props.unit
       return <div>
-          <h2>{this.props.unit}</h2>
+          <h2 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h2>
           <button type='button' onClick={() => this.removeTeammate(unitname)}> -x- </button>
         </div>
     }
@@ -46,7 +47,7 @@ class TeamBar extends React.Component {
     this.setState(
       {
         units:unit_options,
-        teammates:[<Teammate key='Byleth' unit='Byleth' removeTeammate={this.removeTeammate}/>,]
+        teammates:[<Teammate key='Byleth' unit='Byleth' removeTeammate={this.removeTeammate} changeHilightedUnit={this.props.changeHilightedUnit}/>,]
       }
     );
   }
@@ -66,7 +67,7 @@ class TeamBar extends React.Component {
   addTeammate(){
     console.log('add mate' + this.state.selectedUnit);
     var currentTeam = this.state.teammates;
-    currentTeam.push(<Teammate key={this.state.selectedUnit} unit={this.state.selectedUnit} removeTeammate={this.removeTeammate}/>);
+    currentTeam.push(<Teammate key={this.state.selectedUnit} unit={this.state.selectedUnit} removeTeammate={this.removeTeammate} changeHilightedUnit={this.props.changeHilightedUnit}/>);
     this.setState({teammates:currentTeam});
   }
 

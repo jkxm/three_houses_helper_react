@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+
 // import TeamBar from './TeamBar';
 import TeamBuilder from './TeamBuilder.js';
 import * as serviceWorker from './serviceWorker';

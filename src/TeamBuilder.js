@@ -17,6 +17,7 @@ class TeamBuilder extends React.Component {
     this.updateCurrentUnit = this.updateCurrentUnit.bind(this);
     this.changeHilightedUnit = this.changeHilightedUnit.bind(this);
     this.createCharacterSheet = this.createCharacterSheet.bind(this);
+    this.removeCharacterSheet = this.removeCharacterSheet.bind(this);
   }
 
   updateCurrentUnit = (unit) =>{
@@ -32,12 +33,18 @@ class TeamBuilder extends React.Component {
     // this.state = {
     //   current_unit:unit,
     // }
+    var charsheets = this.state.charactersheets;
+    var currCS = charsheets.find(function (element){
+      return element.props.unit === unit;
+    })
     this.setState({
-      current_unit:unit
+      current_unit:unit,
+      current_charactersheet:currCS,
     });
   }
 
-  createCharacterSheet = (unit) =>{
+
+  createCharacterSheet = (unit) => {
     var current_charactersheets = this.state.charactersheets;
     current_charactersheets.push(<CharacterSheet unit={unit} />)
     this.setState({
@@ -45,11 +52,18 @@ class TeamBuilder extends React.Component {
     })
   }
 
-   render(){
+  removeCharacterSheet = (value) => {
+    var currentSheets = this.state.charactersheets;
+    this.setState({
+      charactersheets: currentSheets.filter(unit => unit.props.unit != value)
+    });
+  }
 
+   render(){
+     var currentCS = this.state.current_charactersheet;
      return <div>
-      <TeamBar changeHilightedUnit={this.changeHilightedUnit} createCharacterSheet={this.createCharacterSheet}/>
-      <CharacterSheet unit={this.state.current_unit}/>
+      <TeamBar changeHilightedUnit={this.changeHilightedUnit} createCharacterSheet={this.createCharacterSheet} removeCharacterSheet={this.removeCharacterSheet}/>
+      {this.state.current_charactersheet}
      </div>
    }
 }

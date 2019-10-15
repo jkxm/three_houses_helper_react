@@ -7,8 +7,8 @@ class Teammate extends React.Component {
       super();
     }
 
-    removeTeammate(unit){
-      this.props.removeTeammate(unit);
+    removeBtnHandler(unit){
+      this.props.removeBtnHandler(unit);
     }
 
     changeHilightedUnit(unit){
@@ -19,7 +19,7 @@ class Teammate extends React.Component {
       var unitname = this.props.unit
       return <div>
           <h2 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h2>
-          <button type='button' onClick={() => this.removeTeammate(unitname)}> -x- </button>
+          <button type='button' onClick={() => this.removeBtnHandler(unitname)}> -x- </button>
         </div>
     }
 }
@@ -56,6 +56,11 @@ class TeamBar extends React.Component {
     this.setState({selectedUnit:e.target.value});
   }
 
+
+  removeCharacterSheet(value){
+    this.props.removeCharacterSheet(value);
+  }
+
   removeTeammate(value){
     console.log('removeteammate');
     var currentTeam = this.state.teammates;
@@ -64,13 +69,32 @@ class TeamBar extends React.Component {
     });
   }
 
-  addTeammate(){
-    console.log('add mate' + this.state.selectedUnit);
-    var currentTeam = this.state.teammates;
-    currentTeam.push(<Teammate key={this.state.selectedUnit} unit={this.state.selectedUnit} removeTeammate={this.removeTeammate} changeHilightedUnit={this.props.changeHilightedUnit}/>);
-    this.setState({teammates:currentTeam});
+  removeBtnHandler = (value) =>{
+    this.removeTeammate(value);
+    this.removeCharacterSheet(value);
   }
 
+  createCharacterSheet = (value) =>{
+    this.props.createCharacterSheet(value);
+  }
+
+  addTeammate = () =>{
+    console.log('add mate' + this.state.selectedUnit);
+    var currentTeam = this.state.teammates;
+    currentTeam.push(<Teammate key={this.state.selectedUnit}
+                               unit={this.state.selectedUnit}
+                               removeBtnHandler={this.removeBtnHandler}
+                               removeCharacterSheet={this.removeCharacterSheet}
+                               changeHilightedUnit={this.props.changeHilightedUnit}/>
+                     );
+    this.setState({teammates:currentTeam});
+    // createCharacterSheet(this.state.selectedUnit);
+  }
+
+  addBtnHandler = () =>{
+    this.addTeammate();
+    this.createCharacterSheet(this.state.selectedUnit);
+  }
 
 
   render(){
@@ -84,7 +108,7 @@ class TeamBar extends React.Component {
         <option defaultValue disabled>select unit</option>
         {this.state.units}
       </select>
-      <button type='button' onClick={this.addTeammate.bind(this)}>Add Teammate </button>
+      <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
     </div>
   }
 

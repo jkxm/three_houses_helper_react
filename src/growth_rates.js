@@ -6,7 +6,7 @@
 // [growth rate][lost item][liked item]
 var houses = {
   'Protagonist':['Byleth'],
-  'Black Eagles':['Edelgard','Hubert','Dorothea','Ferdinand','Bernadetta','Caspar','Petra','Lindardt'],
+  'Black Eagles':['Edelgard','Hubert','Dorothea','Ferdinand','Bernadetta','Caspar','Petra','Linhardt'],
   'Blue Lions':['Dimitri','Dedude','Felix','Mercedes','Ashe','Annette','Sylvain','Ingrid'],
   'Golden Deer':['Claude','Lorenz','Hilda','Raphael','Lysithea','Ignatz','Marianne','Leonie'],
   'Church of Seiros':['Manuela', 'Hanneman', 'Seteth', 'Flayn', 'Cyril'],
@@ -22,7 +22,7 @@ var unit_list = [
   'Bernadetta',
   'Caspar',
   'Petra',
-  'Lindardt',
+  'Linhardt',
   'Dimitri',
   'Dedude',
   'Felix',
@@ -59,9 +59,9 @@ var base_stats = {
   'Dorothea':[[40,20,40,45,40,35,15,35,40],['Silver Brooch', 'Songstress Poster','Lovely Comb'],['Book of Sheet Music', 'Gemstone Beads', 'Stylish Hair Clip']],
   'Ferdinand':[[50,45,20,40,50,40,35,20,40],['Maintenance Oil',	'Agricultural Survey',	'Bag of Tea Leaves'],['Riding Boots', 'Whetstone', 'Tea Leaves']],
   'Bernadetta':[[35,35,20,55,50,25,20,30,35],['Needle and Thread',	'Still-Life Picture',	'Hedgehog Case'],['Pitcher Plant', 'Armored Bear Stuffy', 'Book of Sheet Music', 'Watering Can', 'Landscape Painting', 'Dapper Handkerchief']],
-  'Caspar':[[55,45,25,45,45,40,30,20,25],['Thunderbrand Replica',	'Tattered Overcoat',	'Grounding Charm'],['Training Weight', 'Whetstone	Hunting Dagger', 'Smoked Meat']],
+  'Caspar':[[55,45,25,45,45,40,30,20,25],['Thunderbrand Replica',	'Tattered Overcoat',	'Grounding Charm'],['Training Weight', 'Whetstone',	' Hunting Dagger', 'Smoked Meat']],
   'Petra':[[45,40,25,50,60,45,30,15,35],['Exotic Flower','	Small Tanned Hide',	'Annotated Dictionary'],['Sunflower', 'Hunting Dagger', 'Exotic Spices	Smoked Meat']],
-  'Lindardt':[[30,30,45,40,40,45,30,45,20],['The Saints Revealed',	'Feather Pillow',	'Animated Bait'],['Tasty Baked Treat', 'Book of Crest Designs', 'Fishing Float']],
+  'Linhardt':[[30,30,45,40,40,45,30,45,20],['The Saints Revealed',	'Feather Pillow',	'Animated Bait'],['Tasty Baked Treat', 'Book of Crest Designs', 'Fishing Float']],
 
   'Dimitri':[[55,60,20,50,50,25,40,20,55],['Dulled Longsword',	'Black Leather Gloves',	'Training Logbook'],['Training Weight', 'Whetstone', 'Riding Boots', 'Ceremonial Sword']],
   'Dedude':[[60,50,15,30,20,25,50,10,30],['Gold Earring', 'Gardening Sheers', 'Iron Cooking Pot'],['Exotic Spices', 'Floral Adornment', 'Watering Can']],

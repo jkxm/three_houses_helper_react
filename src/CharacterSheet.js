@@ -66,6 +66,15 @@ class LikedAndLostItems extends React.Component{
 }
 
 
+class Skill extends React.Component{
+    constructor(){
+      super();
+
+      this.state ={
+
+      }
+    }
+}
 
 class SkillBar extends React.Component{
     constructor(){
@@ -91,6 +100,7 @@ class CharacterSheet extends React.Component {
       this.state = {
         unit:'Byleth',
         class_options:[],
+        stored_class:'Noble',
         current_class:'Noble',
       };
     }

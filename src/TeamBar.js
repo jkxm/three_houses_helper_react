@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CharacterSheet from './CharacterSheet.js';
 import {class_rates, class_groups, base_stats, houses, unit_list} from './growth_rates.js';
 
 class Teammate extends React.Component {
@@ -33,9 +34,13 @@ class TeamBar extends React.Component {
         units:[],
         teammates:[],
         selectedUnit:'Byleth',
+        hilightedUnit:'Byleth',
+        charactersheets:[],
     }
 
+
     this.removeTeammate = this.removeTeammate.bind(this);
+
   }
 
   componentDidMount(){
@@ -47,7 +52,8 @@ class TeamBar extends React.Component {
     this.setState(
       {
         units:unit_options,
-        teammates:[<Teammate key='Byleth' unit='Byleth' removeTeammate={this.removeTeammate} changeHilightedUnit={this.props.changeHilightedUnit}/>,]
+        teammates:[<Teammate key='Byleth' unit='Byleth' removeTeammate={this.removeTeammate} changeHilightedUnit={this.changeHilightedUnit}/>,],
+        charactersheets:[<CharacterSheet key='Byleth' unit = 'Byleth' />],
       }
     );
   }
@@ -56,9 +62,11 @@ class TeamBar extends React.Component {
     this.setState({selectedUnit:e.target.value});
   }
 
-
-  removeCharacterSheet(value){
-    this.props.removeCharacterSheet(value);
+  removeCharacterSheet = (value) => {
+    var currentSheets = this.state.charactersheets;
+    this.setState({
+      charactersheets: currentSheets.filter(unit => unit.props.unit != value)
+    });
   }
 
   removeTeammate(value){
@@ -74,8 +82,36 @@ class TeamBar extends React.Component {
     this.removeCharacterSheet(value);
   }
 
-  createCharacterSheet = (value) =>{
-    this.props.createCharacterSheet(value);
+  createCharacterSheet = (unit) => {
+    var current_charactersheets = this.state.charactersheets;
+    current_charactersheets.push(<CharacterSheet key={unit} unit={unit} />)
+    this.setState({
+      charactersheets:current_charactersheets
+    })
+  }
+
+  changeHilightedUnit = (unit) =>{
+    // this is where current unit changes and character sheet selection is displayed
+    console.log('change hilight unit', unit);
+    // this.state = {
+    //   current_unit:unit,
+    // }
+    var charsheets = this.state.charactersheets;
+
+    // var currCS = charsheets.find(function (element){
+    //   if(element.props.unit == unit){
+    //     // console.log(element.props.unit, element.state.unit);
+    //
+    //     return element.props.unit === unit;
+    //   })
+    // })
+    // // console.log(currCS.state.class_options);
+    this.setState({
+      hilightedUnit:unit,
+
+      // current_unit:unit,
+      // current_charactersheet:currCS,
+    });
   }
 
   addTeammate = () =>{
@@ -85,7 +121,7 @@ class TeamBar extends React.Component {
                                unit={this.state.selectedUnit}
                                removeBtnHandler={this.removeBtnHandler}
                                removeCharacterSheet={this.removeCharacterSheet}
-                               changeHilightedUnit={this.props.changeHilightedUnit}/>
+                               changeHilightedUnit={this.changeHilightedUnit}/>
                      );
     this.setState({teammates:currentTeam});
     // createCharacterSheet(this.state.selectedUnit);
@@ -97,10 +133,19 @@ class TeamBar extends React.Component {
   }
 
 
+
   render(){
     var teammate_components = this.state.teammates.map(function(unitname){
       return unitname
     })
+    var unit = this.state.hilightedUnit;
+    var currCS = this.state.charactersheets.find(function(element){
+      if(element.props.unit == unit){
+        console.log(element.props.unit);
+        return element;
+      }
+    });
+
     return <div>
       {teammate_components}
 
@@ -109,6 +154,8 @@ class TeamBar extends React.Component {
         {this.state.units}
       </select>
       <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
+
+      {currCS}
     </div>
   }
 

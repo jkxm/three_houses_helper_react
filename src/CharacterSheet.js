@@ -94,15 +94,16 @@ class SkillBar extends React.Component{
 }
 
 class CharacterSheet extends React.Component {
-    constructor(){
-      super();
+    constructor(props){
+      super(props);
 
       this.state = {
-        unit:'Byleth',
         class_options:[],
         stored_class:'Noble',
         current_class:'Noble',
       };
+
+      this.bindClassToSheet = this.bindClassToSheet.bind(this);
     }
 
    componentDidMount(){
@@ -120,9 +121,16 @@ class CharacterSheet extends React.Component {
       });
 
       this.setState({
-          unit:this.props.unit,
           class_options:class_options,
       });
+    }
+
+    bindClassToSheet = () =>{
+      var cc = this.state.current_class;
+      this.setState({
+        stored_class:cc,
+      })
+      console.log('bound' + this.props.unit + 'to' + this.state.stored_class);
     }
 
     changeCurrentClass = (e) =>{
@@ -136,10 +144,10 @@ class CharacterSheet extends React.Component {
 
         <CharacterPortrait unit={this.props.unit} />
         <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
-
+        <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
         <LikedAndLostItems unit={this.props.unit} />
 
-        <GrowthRates unit={this.props.unit} currentclass={this.state.current_class} />
+        <GrowthRates unit={this.props.unit} currentclass={this.state.stored_class} />
 
         <h2>Character sheet for {this.props.unit}</h2>
       </div>

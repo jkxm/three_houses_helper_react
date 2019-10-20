@@ -35,8 +35,13 @@ class TeamBuilder extends React.Component {
     // }
     var charsheets = this.state.charactersheets;
     var currCS = charsheets.find(function (element){
-      return element.props.unit === unit;
+      if(element.props.unit == unit){
+        // console.log(element.props.unit, element.state.unit);
+
+        return element.props.unit === unit;
+      }
     })
+    // console.log(currCS.state.class_options);
     this.setState({
       current_unit:unit,
       current_charactersheet:currCS,
@@ -64,6 +69,7 @@ class TeamBuilder extends React.Component {
      return <div>
       <TeamBar changeHilightedUnit={this.changeHilightedUnit} createCharacterSheet={this.createCharacterSheet} removeCharacterSheet={this.removeCharacterSheet}/>
       {this.state.current_charactersheet}
+      <p>{this.state.current_charactersheet.unit}</p>
      </div>
    }
 }

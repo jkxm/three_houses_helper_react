@@ -48,7 +48,8 @@ class TeamBar extends React.Component {
 
     this.removeTeammate = this.removeTeammate.bind(this);
     this.bindClassToSheet = this.bindClassToSheet.bind(this);
-
+    this.setArray = this.setArray.bind(this);
+    this.removeElementFromArray = this.removeElementFromArray.bind(this);
   }
 
   componentDidMount(){
@@ -162,6 +163,14 @@ class TeamBar extends React.Component {
     console.log(current_unit, this.state[current_unit]['intendedClass']);
   }
 
+  setArray = (field, abilityOrCombatArtArray) =>{
+    var unit = this.state.hilightedUnit;
+    this.state[unit][field] = abilityOrCombatArtArray;
+  }
+
+  removeElementFromArray = (field, element) =>{
+    console.log('remove from teambar' , element);
+  }
 
 
   render(){
@@ -189,6 +198,8 @@ class TeamBar extends React.Component {
         unit={unit}
         intendedClass={this.state[unit].intendedClass}
         bindClassToSheet={this.bindClassToSheet}
+        characterStateObject = {this.state[unit]}
+        setArray = {this.setArray}
       />
     </div>
   }

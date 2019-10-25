@@ -156,12 +156,20 @@ class Spells extends React.Component{
   }
 }
 
+
+
 class CombatArts extends React.Component{
   constructor(props){
     super(props);
-
+    var maxset = false;
+    if (this.props.combatArts.length == 3){
+    // if (!maxset){
+      maxset = true;
+    }
     this.state = {
       // options that have been saved already to parent state
+      currentArt:'',
+      maxset:maxset,
       arts:this.props.combatArts,
       art_options:[],
     };
@@ -181,11 +189,55 @@ class CombatArts extends React.Component{
     })
   }
 
+  changeCurrentArt = (e) =>{
+    console.log(e.target.value);
+    this.setState({
+      currentArt:e.target.value,
+    })
+  }
+
+  setArray = () =>{
+    var newartlist = this.state.arts.slice();
+    // var currentArts = this.state.arts;
+    var currentart = this.state.currentArt;
+    newartlist.push(currentart)
+    this.setState({
+      arts:newartlist
+    })
+
+    this.props.setArray('combatArts', newartlist);
+    console.log(newartlist);
+  }
+
+  //
+  removeElementFromArray = (element) =>{
+    console.log('remove ', element);
+  }
+
   render(){
+    let button;
+    if(this.state.arts.length == 3){
+      button = <button type='button'  disabled>Add Combat Art</button>;
+    }
+    else{
+      button = <button type='button' onClick={this.setArray}>Add Combat Art</button>;
+    }
+    var arts = this.state.arts;
+    var selectedCombatArts = [];
+    arts.forEach(function(element){
+      selectedCombatArts.push(<li>{element} <button value={element} onClick={this.removeElementFromArray.bind(this)}>x</button></li>);
+    });
+
+
     return <div>
-      <select>
+      <h3>Selected Combat Arts</h3>
+      <ul>
+        {selectedCombatArts}
+      </ul>
+      <select onChange={this.changeCurrentArt.bind(this)}>
         {this.state.art_options}
       </select>
+      {button}
     </div>
   }
 
@@ -244,6 +296,10 @@ class CharacterSheet extends React.Component {
       })
     }
 
+    setArray = (field, array) =>{
+      this.props.setArray(field, array);
+    }
+
     render(){
       var unit = this.props.unit
       return <div>
@@ -251,10 +307,19 @@ class CharacterSheet extends React.Component {
         <CharacterPortrait unit={unit} />
         <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
         <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
+
         <LikedAndLostItems unit={unit} />
         <Spells unit={unit} />
-        <GrowthRates unit={unit} previewclass={this.state.current_class} intendedClass={this.state.intendedClass}/>
-        <CombatArts unit={unit} />
+        <GrowthRates unit={unit}
+          previewclass={this.state.current_class}
+          intendedClass={this.state.intendedClass}
+        />
+
+        <CombatArts unit={unit}
+          combatArts={this.props.characterStateObject['combatArts']}
+          setArray={this.setArray}
+        />
+        // <Abilities unit={unit} />
         <h2>Character sheet for {unit}</h2>
       </div>
     }

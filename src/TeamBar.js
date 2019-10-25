@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CharacterSheet from './CharacterSheet.js';
 import {class_rates, class_groups, base_stats, houses, unit_list} from './growth_rates.js';
+import {spells, combat_arts, universal_arts, abilities} from './spells.js';
+
 
 class Teammate extends React.Component {
     constructor(){
@@ -36,10 +38,16 @@ class TeamBar extends React.Component {
         selectedUnit:'Byleth',
         hilightedUnit:'Byleth',
         charactersheets:[],
+        'Byleth':{
+          intendedClass:'Noble',
+          abilities:[],
+          combatArts:[],
+        },
     }
 
 
     this.removeTeammate = this.removeTeammate.bind(this);
+    this.bindClassToSheet = this.bindClassToSheet.bind(this);
 
   }
 
@@ -53,9 +61,15 @@ class TeamBar extends React.Component {
       {
         units:unit_options,
         teammates:[<Teammate key='Byleth' unit='Byleth' removeTeammate={this.removeTeammate} changeHilightedUnit={this.changeHilightedUnit}/>,],
-        charactersheets:[<CharacterSheet key='Byleth' unit = 'Byleth' />],
+        charactersheets:[<CharacterSheet
+          key='Byleth'
+          unit = 'Byleth'
+          intendedClass={this.state['Byleth'].intendedClass}
+          bindClassToSheet={this.bindClassToSheet}
+        />],
       }
     );
+
   }
 
   changeSelectedUnit(e){
@@ -84,7 +98,13 @@ class TeamBar extends React.Component {
 
   createCharacterSheet = (unit) => {
     var current_charactersheets = this.state.charactersheets;
-    current_charactersheets.push(<CharacterSheet key={unit} unit={unit} />)
+    var intendedClass = this.state[unit].intendedClass;
+    current_charactersheets.push(<CharacterSheet
+      key={unit}
+      unit={unit}
+      intendedClass={intendedClass}
+      bindClassToSheet={this.bindClassToSheet}
+      />);
     this.setState({
       charactersheets:current_charactersheets
     })
@@ -93,43 +113,53 @@ class TeamBar extends React.Component {
   changeHilightedUnit = (unit) =>{
     // this is where current unit changes and character sheet selection is displayed
     console.log('change hilight unit', unit);
-    // this.state = {
-    //   current_unit:unit,
-    // }
     var charsheets = this.state.charactersheets;
 
-    // var currCS = charsheets.find(function (element){
-    //   if(element.props.unit == unit){
-    //     // console.log(element.props.unit, element.state.unit);
-    //
-    //     return element.props.unit === unit;
-    //   })
-    // })
-    // // console.log(currCS.state.class_options);
     this.setState({
       hilightedUnit:unit,
 
       // current_unit:unit,
       // current_charactersheet:currCS,
     });
+
+    console.log(this.state[unit]);
   }
 
   addTeammate = () =>{
     console.log('add mate' + this.state.selectedUnit);
     var currentTeam = this.state.teammates;
-    currentTeam.push(<Teammate key={this.state.selectedUnit}
-                               unit={this.state.selectedUnit}
+    var unit = this.state.selectedUnit
+    currentTeam.push(<Teammate key={unit}
+                               unit={unit}
                                removeBtnHandler={this.removeBtnHandler}
                                removeCharacterSheet={this.removeCharacterSheet}
                                changeHilightedUnit={this.changeHilightedUnit}/>
                      );
     this.setState({teammates:currentTeam});
+
+    this.state[unit] = {
+      intendedClass:'Noble',
+      abilities:[],
+      combatArts:[],
+    };
+
     // createCharacterSheet(this.state.selectedUnit);
   }
 
   addBtnHandler = () =>{
     this.addTeammate();
     this.createCharacterSheet(this.state.selectedUnit);
+    this.state[this.state.selectedUnit] = {
+      intendedClass:'Noble',
+      abilities:[],
+      combatArts:[],
+    };
+  }
+
+  bindClassToSheet = (intendedClass) => {
+    var current_unit = this.state.hilightedUnit;
+    this.state[current_unit]['intendedClass'] = intendedClass;
+    console.log(current_unit, this.state[current_unit]['intendedClass']);
   }
 
 
@@ -139,12 +169,12 @@ class TeamBar extends React.Component {
       return unitname
     })
     var unit = this.state.hilightedUnit;
-    var currCS = this.state.charactersheets.find(function(element){
-      if(element.props.unit == unit){
-        console.log(element.props.unit);
-        return element;
-      }
-    });
+    // var currCS = this.state.charactersheets.find(function(element){
+    //   if(element.props.unit == unit){
+    //     console.log(element.props.intendedClass);
+    //     return element;
+    //   }
+    // });
 
     return <div>
       {teammate_components}
@@ -154,8 +184,12 @@ class TeamBar extends React.Component {
         {this.state.units}
       </select>
       <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
-
-      {currCS}
+      <CharacterSheet
+        key={unit}
+        unit={unit}
+        intendedClass={this.state[unit].intendedClass}
+        bindClassToSheet={this.bindClassToSheet}
+      />
     </div>
   }
 

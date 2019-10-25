@@ -60,7 +60,8 @@ var base_stats = {
     [],//lost
     [],//liked
     ['Professor’s Guidance',['Battalion Vantage' ,	'Model Leader' ,'	Battalion Desperation' ,'	Rally Movement' ,]],//abilites
-    ['Bane of Monsters',	'Windsweep',	'Draining Blow',	'Mystic Blow']//dependent arts
+    ['Bane of Monsters',	'Windsweep',	'Draining Blow',	'Mystic Blow'],//dependent arts
+
   ],
   'Edelgard'  :[
     [40,55,45,45,40,30,35,35,60],
@@ -313,57 +314,347 @@ var class_groups = {
 // [class masteries]
 
 var class_rates = {
-  'Noble'           :[[0,0,0,0,0,0,0,0,5        ],[['HP +4 Ability','Raises max health points by 4']],[]],
-  'Commoner'        :[[0,0,0,0,0,0,0,0,0        ],[['HP +4 Ability','Raises max health points by 4']],[]],
-  'Dancer'          :[[20, -5, 0,0,0,0,-5,-5,10 ],[["Special Dance Ability","When using Dance, grants +4 Dex / Spd / Lck to target ally."]],[]],
+  'Noble'           :[
+    [0,0,0,0,0,0,0,0,5        ],
+    [
+      ['HP +4 Ability','Raises max health points by 4']
+    ],
+    []
+  ],
+  'Commoner'        :[
+    [0,0,0,0,0,0,0,0,0        ],
+    [
+      ['HP +4 Ability','Raises max health points by 4']
+    ],
+    []
+  ],
+  'Dancer'          :[
+    [20, -5, 0,0,0,0,-5,-5,10 ],
+    [
+      ["Special Dance Ability","When using Dance, grants +4 Dex / Spd / Lck to target ally."]
+    ],
+    []
+  ],
   // beginner
-  'Myrmidon'        :[[10,0,0,0,5,0,0,-5,5      ],[["Speed +3 Ability","Raises unit's Speed by 3"],["Swap Combat Art","Unit swaps positions with an adjacent ally."]],["Sword D"]],
-  'Soldier'         :[[10,0,0,5,0,0,0,-5,5      ],[["Defense +2 Ability","Raises unit's Defense by 2"],["Reposition Combat Art","Adjacent ally is moved to the opposite side of the unit."]],["Lance D"]],
-  'Fighter'         :[[10,5,0,0,0,0,0,-5,5      ],[["Strength +2 Ability","Raises unit's Strength by 2."],["Shove Combat Art","Unit pushes an adjacent ally forward one space."]],["Axe D", "Bow D", "Brawl D"]],
-  'Monk'            :[[5,0,0,0,0,0,0,5,5        ],[["Magic +2 Ability","	Raises unit's Magic by 2."],["Draw Back Combat Art","Unit moves one space away from an adjacent ally and pulls the ally along."]],["Reason D", "Faith D"]],
+
+  'Myrmidon'        :[
+    [10,0,0,0,5,0,0,-5,5      ],
+    [
+      ["Speed +2 Ability","Raises unit's Speed by 3"],
+      ["Swap Combat Art","Unit swaps positions with an adjacent ally."]
+    ],
+    ["Sword D"]
+  ],
+  'Soldier'         :[
+    [10,0,0,5,0,0,0,-5,5      ],
+    [["Defense +2 Ability","Raises unit's Defense by 2"],["Reposition Combat Art","Adjacent ally is moved to the opposite side of the unit."]],["Lance D"]],
+  'Fighter'         :[
+    [10,5,0,0,0,0,0,-5,5      ],
+    [
+      ["Strength +2 Ability","Raises unit's Strength by 2."],
+      ["Shove Combat Art","Unit pushes an adjacent ally forward one space."]
+    ],
+    ["Axe D", "Bow D", "Brawl D"]
+  ],
+  'Monk'            :[
+    [5,0,0,0,0,0,0,5,5        ],
+    [
+      ["Magic +2 Ability","	Raises unit's Magic by 2."],
+      ["Draw Back Combat Art","Unit moves one space away from an adjacent ally and pulls the ally along."]
+    ],
+    ["Reason D", "Faith D"]
+  ],
   // Intermediate
-  'Lord'            :[[20,0,0,10,0,0,0,0,10     ],[["Resistance +2 Ability","Raises unit's Resistance by 2."], ["Subdue Combat Art","Sword Combat Art that leaves the enemy with 1 HP."]],["Sword D+","Authority C"]],
-  'Mercenary'       :[[20,5,0,0,5,0,0,-5,5      ],[["Vantage Ability","When foe initiates combat, unit still attacks first if less than 50% HP."]],["Sword C"]],
-  'Thief'           :[[20,0,0,10,10,0,0,0,5     ],[["Steal Ability","Allows unit to steal a non-weapon item from a foe with lower Speed."]],["Sword C"]],
-  'Armored Knight'  :[[20,0,0,0,-10,0,5,0,5     ],[["Armored Blow Ability","If unit initiates combat, grants +6 Def during combat."]],["Axe C", "Hvy Armor D"]],
-  'Cavalier'        :[[20,5,0,5,-10,0,5,0,5     ],[["Desperation Ability","If unit initiates combat with HP equal or less than 50%, unit's follow-up attack occurs before foe's counterattack."]],["Lance C","Riding D"]],
-  'Brigand'         :[[30,10,0,0,0,0,0,-5,5     ],[["Death Blow Ability","If unit initiates combat, grants +6 Str during combat."]],["Axe C"]],
-  'Archer'          :[[5,0,0,10,0,5,0,0,5       ],[["Hit +20 Ability","Increases Hit rate by 20."]],["Bow C"]],
-  'Brawler'         :[[30,0,-10,10,10,0,0,-10,5 ],[["Unarmed Combat Ability","Allows unit to attack when no weapons are equipped."]],["Brawl C"]],
-  'Mage'            :[[5,-5,10,5,0,0,-5,5,5     ],[["Fiendish Blow Ability","If unit initiates combat, grants +6 Mag during combat."]],["Reason C"]],
-  'Dark Mage'       :[[5,-5,10,5,0,0,-5,5,0     ],[["Poison Strike Ability","If unit initiates combat, hit will cause foe lose up to 20% of max HP after combat."]],["Reason C"]],
-  'Priest'          :[[5,-5,5,5,0,0,-5,10,10    ],[["Miracle Ability","Luck% Chance to survive lethal damage with 1 HP if HP is above 1"]],["Faith C"]],
-  'Pegasus Knight'  :[[15,0,0,0,10,0,0,5,10     ],[["Darting Blow Ability","If unit initiates combat, grants +6 AS during combat."],["Triangle Attack Combat Art","Combat Art that deals +8 Mt, +30 Hit, +40 Crit, can only be activated when 3 allied units (including user) are adjacent to an enemy."]],["Lance C","Flying D"]],
+
+  'Lord'            :[
+    [20,0,0,10,0,0,0,0,10     ],
+    [
+      ["Resistance +2 Ability","Raises unit's Resistance by 2."],
+      ["Subdue Combat Art","Sword Combat Art that leaves the enemy with 1 HP."]
+    ],
+    ["Sword D+","Authority C"]
+  ],
+  'Mercenary'       :[
+    [20,5,0,0,5,0,0,-5,5      ],
+    [
+      ["Vantage Ability","When foe initiates combat, unit still attacks first if less than 50% HP."]
+    ],
+    ["Sword C"]
+  ],
+  'Thief'           :[
+    [20,0,0,10,10,0,0,0,5     ],
+    [
+      ["Steal Ability","Allows unit to steal a non-weapon item from a foe with lower Speed."]
+    ],
+    ["Sword C"]
+  ],
+  'Armored Knight'  :[
+    [20,0,0,0,-10,0,5,0,5     ],
+    [
+      ["Armored Blow Ability","If unit initiates combat, grants +6 Def during combat."]
+    ],
+    ["Axe C", "Hvy Armor D"]
+  ],
+  'Cavalier'        :[
+    [20,5,0,5,-10,0,5,0,5     ],
+    [
+      ["Desperation Ability","If unit initiates combat with HP equal or less than 50%, unit's follow-up attack occurs before foe's counterattack."]
+    ],
+    ["Lance C","Riding D"]
+  ],
+  'Brigand'         :[
+    [30,10,0,0,0,0,0,-5,5     ],
+    [
+      ["Death Blow Ability","If unit initiates combat, grants +6 Str during combat."]
+    ],
+    ["Axe C"]
+  ],
+  'Archer'          :[
+    [5,0,0,10,0,5,0,0,5       ],
+    [
+      ["Hit +20 Ability","Increases Hit rate by 20."]
+    ],
+    ["Bow C"]
+  ],
+  'Brawler'         :[
+    [30,0,-10,10,10,0,0,-10,5 ],
+    [
+      ["Unarmed Combat Ability","Allows unit to attack when no weapons are equipped."]
+    ],
+    ["Brawl C"]
+  ],
+  'Mage'            :[
+    [5,-5,10,5,0,0,-5,5,5     ],
+    [
+      ["Fiendish Blow Ability","If unit initiates combat, grants +6 Mag during combat."]
+    ],
+    ["Reason C"]
+  ],
+  'Dark Mage'       :[
+    [5,-5,10,5,0,0,-5,5,0     ],
+    [
+      ["Poison Strike Ability","If unit initiates combat, hit will cause foe lose up to 20% of max HP after combat."]
+    ],
+    ["Reason C"]
+  ],
+  'Priest'          :[
+    [5,-5,5,5,0,0,-5,10,10    ],
+    [
+      ["Miracle Ability","Luck% Chance to survive lethal damage with 1 HP if HP is above 1"]
+    ],
+    ["Faith C"]
+  ],
+  'Pegasus Knight'  :[
+    [15,0,0,0,10,0,0,5,10     ],
+    [
+      ["Darting Blow Ability","If unit initiates combat, grants +6 AS during combat."],
+      ["Triangle Attack Combat Art","Combat Art that deals +8 Mt, +30 Hit, +40 Crit, can only be activated when 3 allied units (including user) are adjacent to an enemy."]
+    ],
+    ["Lance C","Flying D"]
+  ],
   // advanced
-  'Armored Lord'    :[[20,5,5,0,0,0,5,5,10      ],[["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]],[]],
-  'High Lord'       :[[20,5,0,5,0,0,5,0,10      ],[["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]],[]],
-  'Wyvern Master'   :[[20,10,0,0,5,0,5,0,10     ],[["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]],[]],
-  'Hero'            :[[30,10,0,0,10,0,0,-5,5    ],[["Defiant Strength Ability","Grants +8 Str when HP is less than 25%."]],["Sword B","Axe C"]],
-  'Swordmaster'     :[[25,10,0,0,20,0,0,-5,5    ],[["Astra Combat Art","A Sword Combat Art that attacks 5 times at 30% Mt. (Swordsmaster Exclusive)"]],["Sword A"]],
-  'Assassin'        :[[20,0,0,20,20,0,0,0,0     ],[["Lethality Ability","(Dex x 0.25)% Chance to instantly kill a foe when damage is dealt."], ["Assassinate Combat Art","A Combat Art that grants +15 Hit and +15 Avo, and can kill enemies instantly. (Assassin Exclusive)"]],["Sword B","Bow C"]],
-  'Fortress Knight' :[[30,10,0,0,-10,0,15,0,5   ],[["Pavise Ability","Dex% chance to reduce sword / lance / axe / brawling damage by half."]],["Axe B","Hvy Armor B"]],
-  'Paladin'         :[[30,10,0,5,-10,5,5,5,5    ],[["Aegis Ability","Dex% chance to reduce bow / magic damage by half."]],["Lance B","Riding B"]],
-  'Wyvern Rider'    :[[30,10,-5,0,0,0,5,-5,5    ],[["Seal Defense Ability","If unit damages foe during combat, they suffer -6 Def for 1 turn."]],["Axe B","Flying C"]],
-  'Warrior'         :[[40,15,-5,0,0,0,0,0,5     ],[["Wrath Ability","If foe initiates combat when unit's HP is 50% or less, grants +50 Crit."]],["Axe A"]],
-  'Sniper'          :[[10,5,0,20,0,10,0,0,5     ],[["Hunter's Volley Combat Art","A Bow Combat Art that adds +1 Mt, +15 Hit, +10 Crit, and strikes twice. (Sniper Exclusive)"]],["Bow A"]],
-  'Grappler'        :[[40,10,0,10,10,0,0,0,5    ],[["Tomebreaker Ability","Grants Hit / Avo +20 when using brawling against magic users."], ["Fierce Iron First Combat Art", "A Brawling Combat Art that grants +1 Mt, +10 Hit, +10 Crit and strikes 3 times. (Grappler Exclusive)"]],["Brawl A"]],
-  'Warlock'         :[[10,0,10,0,0,0,-5,5,5     ],[["Bowbreaker Ability","	Grants Hit / Avo +20 when using magic against bow users."]],["Reason A"]],
-  'Dark Bishop'     :[[10,0,10,0,0,0,-5,5,0     ],[["Lifetaker Ability","Unit recovers HP equal to 50% of damage dealt after defeating a foe."]],["Reason A"]],
-  'Bishop'          :[[10,0,10,0,0,10,-5,5,10   ],[["Renewal Ability","Unit recovers up to 20% of max HP at the start of each turn."]],["Faith A"]],
+
+  'Armored Lord'    :[
+    [20,5,5,0,0,0,5,5,10      ],
+    [
+      ["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]
+    ],
+    []
+  ],
+  'High Lord'       :[
+    [20,5,0,5,0,0,5,0,10      ],
+    [
+      ["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]
+    ],
+    []
+  ],
+  'Wyvern Master'   :[
+    [20,10,0,0,5,0,5,0,10     ],
+    [
+      ["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]
+    ],
+    []
+  ],
+  'Hero'            :[
+    [30,10,0,0,10,0,0,-5,5    ],
+    [
+      ["Defiant Strength Ability","Grants +8 Str when HP is less than 25%."]
+    ],
+    ["Sword B","Axe C"]
+  ],
+  'Swordmaster'     :[
+    [25,10,0,0,20,0,0,-5,5    ],
+    [
+      ["Astra Combat Art","A Sword Combat Art that attacks 5 times at 30% Mt. (Swordsmaster Exclusive)"]
+    ],
+    ["Sword A"]
+  ],
+  'Assassin'        :[
+    [20,0,0,20,20,0,0,0,0     ],
+    [
+      ["Lethality Ability","(Dex x 0.25)% Chance to instantly kill a foe when damage is dealt."],
+      ["Assassinate Combat Art","A Combat Art that grants +15 Hit and +15 Avo, and can kill enemies instantly. (Assassin Exclusive)"]
+    ],
+    ["Sword B","Bow C"]
+  ],
+  'Fortress Knight' :[
+    [30,10,0,0,-10,0,15,0,5   ],
+    [
+      ["Pavise Ability","Dex% chance to reduce sword / lance / axe / brawling damage by half."]
+    ],
+    ["Axe B","Hvy Armor B"]
+  ],
+  'Paladin'         :[
+    [30,10,0,5,-10,5,5,5,5    ],
+    [
+      ["Aegis Ability","Dex% chance to reduce bow / magic damage by half."]
+    ],
+    ["Lance B","Riding B"]
+  ],
+  'Wyvern Rider'    :[
+    [30,10,-5,0,0,0,5,-5,5    ],
+    [
+      ["Seal Defense Ability","If unit damages foe during combat, they suffer -6 Def for 1 turn."]
+    ],
+    ["Axe B","Flying C"]
+  ],
+  'Warrior'         :[
+    [40,15,-5,0,0,0,0,0,5     ],
+    [
+      ["Wrath Ability","If foe initiates combat when unit's HP is 50% or less, grants +50 Crit."]
+    ],
+    ["Axe A"]
+  ],
+  'Sniper'          :[
+    [10,5,0,20,0,10,0,0,5     ],
+    [
+      ["Hunter's Volley Combat Art","A Bow Combat Art that adds +1 Mt, +15 Hit, +10 Crit, and strikes twice. (Sniper Exclusive)"]
+    ],
+    ["Bow A"]
+  ],
+  'Grappler'        :[
+    [40,10,0,10,10,0,0,0,5    ],
+    [
+      ["Tomebreaker Ability","Grants Hit / Avo +20 when using brawling against magic users."],
+      ["Fierce Iron First Combat Art", "A Brawling Combat Art that grants +1 Mt, +10 Hit, +10 Crit and strikes 3 times. (Grappler Exclusive)"]
+    ],
+    ["Brawl A"]
+  ],
+  'Warlock'         :[
+    [10,0,10,0,0,0,-5,5,5     ],
+    [
+      ["Bowbreaker Ability","	Grants Hit / Avo +20 when using magic against bow users."]
+    ],
+    ["Reason A"]
+  ],
+  'Dark Bishop'     :[
+    [10,0,10,0,0,0,-5,5,0     ],
+    [
+      ["Lifetaker Ability","Unit recovers HP equal to 50% of damage dealt after defeating a foe."]
+    ],
+    ["Reason A"]
+  ],
+  'Bishop'          :[
+    [10,0,10,0,0,10,-5,5,10   ],
+    [
+      ["Renewal Ability","Unit recovers up to 20% of max HP at the start of each turn."]
+    ],
+    ["Faith A"]
+  ],
   // master
-  'Enlightened One' :[[20,10,10,0,0,0,5,0,5     ],[["Sacred Power Ability","Adjacent allies deal 3 extra damage and take 3 less damage during combat."]],[]],
-  'Emperor'         :[[30,10,10,0,0,0,5,5,10    ],[["Flickering Flower Combat Art","An attack that seals the enemy’s movement. (Exclusive to Emperor)"]],[]],
-  'Great Lord'      :[[30,10,0,10,0,0,5,0,10    ],[["Paraselene Combat Art","A Lance Combat Art that grants +10 Mt, +10 Avo, and moves the unit back one space after attacking. (Exclusive to Great Lord)"]],[]],
-  'Barbarossa'      :[[30,15,0,0,10,0,5,0,10    ],[["Wind God","A bow attack with exceptional range. (Exclusive to Barbarossa)"]],[]],
-  'Falcon Knight'   :[[30,10,0,0,20,0,0,5,10    ],[["Defiant Avo Ability","Grants +30 Avo when HP is equal to or below 25%."]],["Sword C", "Lance A","Flying B+"]],
-  'Wyvern Lord'     :[[30,15,-5,0,10,0,5,0,5    ],[["Defiant Crit Ability","Grants +50 Crit when HP is equal to or below 25%."]],["Lance C", "Axe A","Flying A"]],
-  'Mortal Savant'   :[[20,10,10,0,-10,10,0,0,5  ],[["Warding Blow Ability","If unit initiates combat, grants +6 Res during combat."]],["Sword A","Reason B+"]],
-  'Great Knight'    :[[30,10,0,0,-10,0,5,-5,5   ],[["Defiant Def Ability","Grants +6 Def when HP is equal to or below 25%"]],["Axe B+", "Hvy Armor A","Riding B+"]],
-  'Bow Knight'      :[[10,0,0,0,-5,0,0,0,5      ],[["Defiant Spd Ability","Grants +6 Speed when HP is equal to or below 25%."]],["Lance C", "Bow A","Riding A"]],
-  'Dark Knight'     :[[10,5,10,0,-5,0,5,10,5    ],[["Seal Resistance Ability","If unit damages foe during combat, they suffer -6 Res for 1 turn after combat."]],["Lance C","Reason B+","Riding A"]],
-  'Holy Knight'     :[[10,0,10,0,-5,10,5,10,10  ],[["Defiant Res Ability","Grants +8 Res when HP is equal to or below 25%."]],["Lance C","Faith B+","Riding A"]],
-  'War Master'      :[[40,15,0,0,10,0,0,0,5     ],[["Quick Riposte Ability","If foe initiate's combat while unit's HP is 50% or more, unit makes a guaranteed follow-up attack."],["War Master's Strike Combat Art","Axe Combat Art that grants +3 Mt, +30 Hit, and is effective against all enemy types."]],["Axe A","Brawl A"]],
-  'Gremory'         :[[10,0,10,10,0,0,0,5,10    ],[["Defiant Mag Ability","Grants +8 Mag when HP is equal to or below 25%."]],["Reason A","Faith A"]],
+
+  'Enlightened One' :[
+    [20,10,10,0,0,0,5,0,5     ],
+    [
+      ["Sacred Power Ability","Adjacent allies deal 3 extra damage and take 3 less damage during combat."]
+    ],
+    []
+  ],
+  'Emperor'         :[
+    [30,10,10,0,0,0,5,5,10    ],
+    [
+      ["Flickering Flower Combat Art","An attack that seals the enemy’s movement. (Exclusive to Emperor)"]
+    ],
+    []
+  ],
+  'Great Lord'      :[
+    [30,10,0,10,0,0,5,0,10    ],
+    [
+      ["Paraselene Combat Art","A Lance Combat Art that grants +10 Mt, +10 Avo, and moves the unit back one space after attacking. (Exclusive to Great Lord)"]
+    ],
+    []
+  ],
+  'Barbarossa'      :[
+    [30,15,0,0,10,0,5,0,10    ],
+    [
+      ["Wind God Combat Art","A bow attack with exceptional range. (Exclusive to Barbarossa)"]
+    ],
+    []
+  ],
+  'Falcon Knight'   :[
+    [30,10,0,0,20,0,0,5,10    ],
+    [
+      ["Defiant Avo Ability","Grants +30 Avo when HP is equal to or below 25%."]
+    ],
+    ["Sword C", "Lance A","Flying B+"]
+  ],
+  'Wyvern Lord'     :[
+    [30,15,-5,0,10,0,5,0,5    ],
+    [
+      ["Defiant Crit Ability","Grants +50 Crit when HP is equal to or below 25%."]
+    ],
+    ["Lance C", "Axe A","Flying A"]
+  ],
+  'Mortal Savant'   :[
+    [20,10,10,0,-10,10,0,0,5  ],
+    [
+      ["Warding Blow Ability","If unit initiates combat, grants +6 Res during combat."]
+    ],
+    ["Sword A","Reason B+"]
+  ],
+  'Great Knight'    :[
+    [30,10,0,0,-10,0,5,-5,5   ],
+    [
+      ["Defiant Def Ability","Grants +6 Def when HP is equal to or below 25%"]
+    ],
+    ["Axe B+", "Hvy Armor A","Riding B+"]
+  ],
+  'Bow Knight'      :[
+    [10,0,0,0,-5,0,0,0,5      ],
+    [
+      ["Defiant Spd Ability","Grants +6 Speed when HP is equal to or below 25%."]
+    ],
+    ["Lance C", "Bow A","Riding A"]
+  ],
+  'Dark Knight'     :[
+    [10,5,10,0,-5,0,5,10,5    ],
+    [
+      ["Seal Resistance Ability","If unit damages foe during combat, they suffer -6 Res for 1 turn after combat."]
+    ],
+    ["Lance C","Reason B+","Riding A"]
+  ],
+  'Holy Knight'     :[
+    [10,0,10,0,-5,10,5,10,10  ],
+    [
+      ["Defiant Res Ability","Grants +8 Res when HP is equal to or below 25%."]
+    ],
+    ["Lance C","Faith B+","Riding A"]
+  ],
+  'War Master'      :[
+    [40,15,0,0,10,0,0,0,5     ],
+    [
+      ["Quick Riposte Ability","If foe initiate's combat while unit's HP is 50% or more, unit makes a guaranteed follow-up attack."],
+      ["War Master's Strike Combat Art","Axe Combat Art that grants +3 Mt, +30 Hit, and is effective against all enemy types."]
+    ],
+    ["Axe A","Brawl A"]
+  ],
+  'Gremory'         :[
+    [10,0,10,10,0,0,0,5,10    ],
+    [
+      ["Defiant Mag Ability","Grants +8 Mag when HP is equal to or below 25%."]
+    ],
+    ["Reason A","Faith A"]
+  ],
 }
 
 

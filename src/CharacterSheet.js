@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import {class_rates, class_groups, base_stats, houses, unit_list} from './growth_rates.js';
-
-
-
+import {spells, combat_arts, universal_arts, abilities} from './spells.js';
 
 
 class CharacterPortrait extends React.Component{
@@ -21,23 +19,43 @@ class CharacterPortrait extends React.Component{
 class GrowthRates extends React.Component{
 
     render(){
-      var currclass = this.props.currentclass;
+      var intendedClass = this.props.intendedClass;
+      var previewclass = this.props.previewclass;
       var currunit = this.props.unit;
       const stats = ['HP', 'Str', 'Mag', 'Dex', 'Spd', 'Lck', 'Def', 'Res' , 'Cha'];
-      var classrate = class_rates[currclass][0];
+      var classrate_intendedclass = class_rates[intendedClass][0];
+      var classrate_previewclass = class_rates[previewclass][0]
       var baserate = base_stats[currunit][0];
       var tabledata = [];
       for(var i = 0; i< stats.length; i++){
         tabledata.push(<tr>
           <td>{stats[i]}</td>
           <td>{baserate[i]}</td>
-          <td>{classrate[i]}</td>
-          <td>{baserate[i] + classrate[i]}</td>
+          <td>{classrate_intendedclass[i]}</td>
+          <td>{baserate[i] + classrate_intendedclass[i]}</td>
+        </tr>);
+      }
+      var preview = [];
+      for(var i = 0; i< stats.length; i++){
+        preview.push(<tr>
+          <td>{stats[i]}</td>
+          <td>{baserate[i]}</td>
+          <td>{classrate_previewclass[i]}</td>
+          <td>{baserate[i] + classrate_previewclass[i]}</td>
         </tr>);
       }
       return <div>
+          <h3>Growth Rates for {intendedClass}</h3>
           <table>
-            {tabledata}
+            <tbody>
+              {tabledata}
+            </tbody>
+          </table>
+          <h3>Preview Growth Rates for {previewclass}</h3>
+          <table>
+            <tbody>
+              {preview}
+            </tbody>
           </table>
       </div>
     }
@@ -59,14 +77,15 @@ class LikedAndLostItems extends React.Component{
         lostitems.push(<li>{element}</li>);
       });
       return <div>
+          <h3>Liked Items</h3>
           <ul>{likeditems}</ul>
+          <h3>Lost Items</h3>
           <ul>{lostitems}</ul>
       </div>
     }
 }
 
-
-class Skill extends React.Component{
+class Ability extends React.Component{
     constructor(){
       super();
 
@@ -76,12 +95,12 @@ class Skill extends React.Component{
     }
 }
 
-class SkillBar extends React.Component{
+class AbilityBar extends React.Component{
     constructor(){
       super();
 
       this.state = {
-        skills:[],
+        abilities:[],
 
       }
     }
@@ -93,13 +112,93 @@ class SkillBar extends React.Component{
     }
 }
 
+class Abilities extends React.Component{
+  constructor(props){
+    super(props);
+
+    this.state = {
+      abilities:[],
+    }
+  }
+
+  render(){
+
+
+    return <div>
+
+    </div>
+  }
+}
+
+class Spells extends React.Component{
+
+  render(){
+    var black = spells[this.props.unit][0];
+    var white = spells[this.props.unit][1];
+
+    var blackarr = [];
+    var whitearr = [];
+
+    black.forEach(function(element){
+      blackarr.push(<li>{element}</li>);
+    });
+    white.forEach(function(element){
+      whitearr.push(<li>{element}</li>);
+    });
+
+
+    return <div>
+      <h3>Dark/Black Magic</h3>
+        <ul>{blackarr}</ul>
+      <h3>White Magic</h3>
+        <ul>{whitearr}</ul>
+    </div>
+  }
+}
+
+class CombatArts extends React.Component{
+  constructor(props){
+    super(props);
+
+    this.state = {
+      // options that have been saved already to parent state
+      arts:this.props.combatArts,
+      art_options:[],
+    };
+  };
+
+  componentDidMount(){
+    var art_options = [];
+    var all_arts = base_stats[this.props.unit][4].concat(universal_arts);
+
+    // combat art options for specific unit
+    all_arts.forEach(function(element){
+      art_options.push(<option value={element}>{element}</option>);
+    });
+
+    this.setState({
+      art_options:art_options,
+    })
+  }
+
+  render(){
+    return <div>
+      <select>
+        {this.state.art_options}
+      </select>
+    </div>
+  }
+
+
+}
+
 class CharacterSheet extends React.Component {
     constructor(props){
       super(props);
 
       this.state = {
         class_options:[],
-        stored_class:'Noble',
+        intendedClass:props.intendedClass,
         current_class:'Noble',
       };
 
@@ -126,11 +225,17 @@ class CharacterSheet extends React.Component {
     }
 
     bindClassToSheet = () =>{
-      var cc = this.state.current_class;
+      // var cc = this.state.current_class;
+      // this.setState({
+      //   stored_class:cc,
+      // })
+      //
+      // console.log('bound' + this.props.unit + 'to' + this.state.stored_class);
+      var newclass = this.state.current_class
+      this.props.bindClassToSheet(newclass);
       this.setState({
-        stored_class:cc,
+        intendedClass:newclass
       })
-      console.log('bound' + this.props.unit + 'to' + this.state.stored_class);
     }
 
     changeCurrentClass = (e) =>{
@@ -140,16 +245,17 @@ class CharacterSheet extends React.Component {
     }
 
     render(){
+      var unit = this.props.unit
       return <div>
 
-        <CharacterPortrait unit={this.props.unit} />
+        <CharacterPortrait unit={unit} />
         <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
         <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
-        <LikedAndLostItems unit={this.props.unit} />
-
-        <GrowthRates unit={this.props.unit} currentclass={this.state.stored_class} />
-
-        <h2>Character sheet for {this.props.unit}</h2>
+        <LikedAndLostItems unit={unit} />
+        <Spells unit={unit} />
+        <GrowthRates unit={unit} previewclass={this.state.current_class} intendedClass={this.state.intendedClass}/>
+        <CombatArts unit={unit} />
+        <h2>Character sheet for {unit}</h2>
       </div>
     }
 }

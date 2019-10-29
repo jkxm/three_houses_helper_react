@@ -200,6 +200,7 @@ class TeamBar extends React.Component {
         bindClassToSheet={this.bindClassToSheet}
         characterStateObject = {this.state[unit]}
         setArray = {this.setArray}
+        removeElementFromArray = {this.removeElementFromArray}
       />
     </div>
   }

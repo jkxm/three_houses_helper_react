@@ -156,8 +156,6 @@ class Spells extends React.Component{
   }
 }
 
-
-
 class CombatArts extends React.Component{
   constructor(props){
     super(props);
@@ -185,6 +183,7 @@ class CombatArts extends React.Component{
     });
 
     this.setState({
+      currentArt:all_arts[0],
       art_options:art_options,
     })
   }
@@ -211,6 +210,7 @@ class CombatArts extends React.Component{
 
   //
   removeElementFromArray = (element) =>{
+    this.props.removeElementFromArray('combatArts', element);
     console.log('remove ', element);
   }
 
@@ -224,8 +224,9 @@ class CombatArts extends React.Component{
     }
     var arts = this.state.arts;
     var selectedCombatArts = [];
+    var func = this.removeElementFromArray;
     arts.forEach(function(element){
-      selectedCombatArts.push(<li>{element} <button value={element} onClick={this.removeElementFromArray.bind(this)}>x</button></li>);
+      selectedCombatArts.push(<li>{element} <button value={element} onClick={func}>x</button></li>);
     });
 
 
@@ -240,7 +241,6 @@ class CombatArts extends React.Component{
       {button}
     </div>
   }
-
 
 }
 
@@ -257,23 +257,24 @@ class CharacterSheet extends React.Component {
       this.bindClassToSheet = this.bindClassToSheet.bind(this);
     }
 
-   componentDidMount(){
-      var class_options = []
-      var class_head = Object.keys(class_groups);
-      class_head.forEach(function(key){
-        var class_arr = class_groups[key];
-        // var optgroup = document.createElement('OPTGROUP');
-        // class_options.push(<optgroup label={key}>);
+    componentDidMount(){
+        var class_options = []
+        var class_head = Object.keys(class_groups);
+        class_head.forEach(function(key){
+          var class_arr = class_groups[key];
+          // var optgroup = document.createElement('OPTGROUP');
+          // class_options.push(<optgroup label={key}>);
 
-        class_arr.forEach(function(element){
-          class_options.push(<option value={element}>{element}</option>);
+          class_arr.forEach(function(element){
+            class_options.push(<option value={element}>{element}</option>);
+          });
+          // class_options.push(</optgroup>);
         });
-        // class_options.push(</optgroup>);
-      });
 
-      this.setState({
-          class_options:class_options,
-      });
+        this.setState({
+            class_options:class_options,
+
+        });
     }
 
     bindClassToSheet = () =>{
@@ -300,6 +301,10 @@ class CharacterSheet extends React.Component {
       this.props.setArray(field, array);
     }
 
+    removeElementFromArray = (field, array) =>{
+      this.props.removeElementFromArray(field, array);
+    }
+
     render(){
       var unit = this.props.unit
       return <div>
@@ -313,11 +318,13 @@ class CharacterSheet extends React.Component {
         <GrowthRates unit={unit}
           previewclass={this.state.current_class}
           intendedClass={this.state.intendedClass}
+          removeElementFromArray={this.removeElementFromArray}
         />
 
         <CombatArts unit={unit}
           combatArts={this.props.characterStateObject['combatArts']}
           setArray={this.setArray}
+          removeElementFromArray={this.removeElementFromArray}
         />
         // <Abilities unit={unit} />
         <h2>Character sheet for {unit}</h2>

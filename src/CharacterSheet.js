@@ -171,6 +171,8 @@ class CombatArts extends React.Component{
       arts:this.props.combatArts,
       art_options:[],
     };
+
+    this.removeElementFromArray = this.removeElementFromArray.bind(this);
   };
 
   componentDidMount(){
@@ -189,29 +191,53 @@ class CombatArts extends React.Component{
   }
 
   changeCurrentArt = (e) =>{
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({
       currentArt:e.target.value,
     })
   }
 
   setArray = () =>{
-    var newartlist = this.state.arts.slice();
+    // var newartlist = this.state.arts.slice();
+    var arts = this.state.arts;
     // var currentArts = this.state.arts;
+
     var currentart = this.state.currentArt;
-    newartlist.push(currentart)
+    arts.push(currentart)
+    // newartlist.push(currentart)
     this.setState({
-      arts:newartlist
+      arts:arts
     })
 
-    this.props.setArray('combatArts', newartlist);
-    console.log(newartlist);
-  }
+    this.props.setArray('combatArts', arts);
+    // console.log(this.state.arts);
+  };
 
   //
   removeElementFromArray = (element) =>{
-    this.props.removeElementFromArray('combatArts', element);
-    console.log('remove ', element);
+    // console.log(element.target.value);
+    var arts = this.state.arts.filter(el => el != element.target.value)
+    this.setState({
+      arts:arts
+    });
+    this.props.removeElementFromArray('combatArts', arts);
+    // console.log('remove', element.target.value);
+  };
+//
+  createCombatArtList = () =>{
+    var arts = this.state.arts;
+    var selectedCombatArts = [];
+    var remove = (element) => this.removeElementFromArray;
+    // console.log(arts);
+    arts.forEach(function(element){
+      // console.log(element);
+      var li =  <li>{element}
+                  <button  type='button' onClick={remove(element)} value={element} > x </button>
+                </li>
+      selectedCombatArts.push(li);
+    });
+
+    return selectedCombatArts;
   }
 
   render(){
@@ -222,18 +248,13 @@ class CombatArts extends React.Component{
     else{
       button = <button type='button' onClick={this.setArray}>Add Combat Art</button>;
     }
-    var arts = this.state.arts;
-    var selectedCombatArts = [];
-    var func = this.removeElementFromArray;
-    arts.forEach(function(element){
-      selectedCombatArts.push(<li>{element} <button value={element} onClick={func}>x</button></li>);
-    });
 
+    var listcontent = this.createCombatArtList();
 
     return <div>
       <h3>Selected Combat Arts</h3>
       <ul>
-        {selectedCombatArts}
+        {listcontent}
       </ul>
       <select onChange={this.changeCurrentArt.bind(this)}>
         {this.state.art_options}

@@ -19,7 +19,7 @@ class Teammate extends React.Component {
     }
 
     render() {
-      var unitname = this.props.unit
+      var unitname = this.props.unit;
       return <div>
           <h2 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h2>
           <button type='button' onClick={() => this.removeBtnHandler(unitname)}> -x- </button>
@@ -166,10 +166,19 @@ class TeamBar extends React.Component {
   setArray = (field, abilityOrCombatArtArray) =>{
     var unit = this.state.hilightedUnit;
     this.state[unit][field] = abilityOrCombatArtArray;
+    console.log(this.state[unit][field]);
+    // console.log(this.state[unit][field]);
   }
 
   removeElementFromArray = (field, element) =>{
-    console.log('remove from teambar' , element);
+    var unit = this.state.hilightedUnit;
+    // var temparray = this.state[unit][field];
+    // temparray.filter(e => e != element);
+    //
+    // console.log(element, field, this.state[unit][field]);
+    // this.state[unit][field] = temparray;
+    // console.log(this.state[unit][field]);
+    this.state[unit][field] = element;
   }
 
 

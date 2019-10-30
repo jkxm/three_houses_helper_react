@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import {class_rates, class_groups, base_stats, houses, unit_list} from './growth_rates.js';
-import {spells, combat_arts, universal_arts, abilities} from './spells.js';
+import {spells, combat_arts, universal_arts, allabilities, universal_abilities} from './spells.js';
 
 
 class CharacterPortrait extends React.Component{
@@ -85,49 +85,104 @@ class LikedAndLostItems extends React.Component{
     }
 }
 
-class Ability extends React.Component{
-    constructor(){
-      super();
-
-      this.state ={
-
-      }
-    }
-}
-
-class AbilityBar extends React.Component{
-    constructor(){
-      super();
-
-      this.state = {
-        abilities:[],
-
-      }
-    }
-    // will render all skill components
-    render(){
-      return <div>
-
-      </div>
-    }
-}
-
 class Abilities extends React.Component{
-  constructor(props){
-    super(props);
+    constructor(props){
+      super(props);
+      var maxset = false;
+      if(this.props.abilities.length == 5){
+        maxset = !maxset;
+      };
+      this.state ={
+        currentAbility:'',
+        maxset:maxset,
+        abilities:this.props.abilities,
+        ability_options:[],
 
-    this.state = {
-      abilities:[],
+      }
+
+      this.removeElementFromArray = this.removeElementFromArray.bind(this);
     }
-  }
 
-  render(){
+    componentDidMount(){
+      var ability_options = [];
+      var all_abilities = base_stats[this.props.unit][3][1].concat(universal_abilities);
 
+      all_abilities.forEach(function(element){
+        ability_options.push(<option value={element}>{element}</option>);
+      });
+      this.setState({
+        currentAbility:all_abilities[0],
+        ability_options:ability_options,
+      });
 
-    return <div>
+    };
 
-    </div>
-  }
+    changeCurrentAbility = (e) =>{
+      // console.log(e.target.value);
+      this.setState({
+        currentAbility:e.target.value,
+      })
+    };
+
+    setArray = () =>{
+      var abilities = this.state.abilities;
+      var currentability = this.state.currentAbility;
+      abilities.push(currentability)
+      this.setState({
+        abilities:abilities
+      })
+      this.props.setArray('abilities', abilities);
+    };
+
+    removeElementFromArray = (element) =>{
+      // console.log(element.target.value);
+      var abilities = this.state.abilities.filter(el => el != element.target.value)
+      this.setState({
+        abilities:abilities
+      });
+      this.props.removeElementFromArray('abilities', abilities);
+      // console.log('remove', element.target.value);
+    };
+
+    createAbiltiesList = () =>{
+      var abilities = this.state.abilities;
+      var selectedabilities = [];
+      var remove = (element) => this.removeElementFromArray;
+      // console.log(arts);
+      abilities.forEach(function(element){
+        // console.log(element);
+        var li =  <li>{element} : {allabilities[element][0]}
+                    <button  type='button' onClick={remove(element)} value={element} > x </button>
+                  </li>
+        selectedabilities.push(li);
+      });
+
+      return selectedabilities;
+    };
+
+    render(){
+      let button;
+      // if(this.state.abilities){
+      if(this.state.abilities.length == 5){
+        button = <button type='button'  disabled>+</button>;
+      }
+      else{
+        button = <button type='button' onClick={this.setArray}>+</button>;
+      }
+
+      var listcontent = this.createAbiltiesList();
+
+      return <div>
+          <h3>Selected Abilities</h3>
+          <ul>
+            {listcontent}
+          </ul>
+          <select onChange={this.changeCurrentAbility.bind(this)}>
+            {this.state.ability_options}
+          </select>
+          {button}
+      </div>
+    };
 }
 
 class Spells extends React.Component{
@@ -208,12 +263,9 @@ class CombatArts extends React.Component{
     this.setState({
       arts:arts
     })
-
     this.props.setArray('combatArts', arts);
-    // console.log(this.state.arts);
   };
 
-  //
   removeElementFromArray = (element) =>{
     // console.log(element.target.value);
     var arts = this.state.arts.filter(el => el != element.target.value)
@@ -223,7 +275,7 @@ class CombatArts extends React.Component{
     this.props.removeElementFromArray('combatArts', arts);
     // console.log('remove', element.target.value);
   };
-//
+
   createCombatArtList = () =>{
     var arts = this.state.arts;
     var selectedCombatArts = [];
@@ -231,14 +283,14 @@ class CombatArts extends React.Component{
     // console.log(arts);
     arts.forEach(function(element){
       // console.log(element);
-      var li =  <li>{element}
+      var li =  <li>{element} : {combat_arts[element][1]}
                   <button  type='button' onClick={remove(element)} value={element} > x </button>
                 </li>
       selectedCombatArts.push(li);
     });
 
     return selectedCombatArts;
-  }
+  };
 
   render(){
     let button;
@@ -261,7 +313,7 @@ class CombatArts extends React.Component{
       </select>
       {button}
     </div>
-  }
+  };
 
 }
 
@@ -328,8 +380,8 @@ class CharacterSheet extends React.Component {
 
     render(){
       var unit = this.props.unit
-      return <div>
-
+      return <div className='col-lg-8'>
+        <h2>Character sheet for {unit}</h2>
         <CharacterPortrait unit={unit} />
         <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
         <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
@@ -347,8 +399,13 @@ class CharacterSheet extends React.Component {
           setArray={this.setArray}
           removeElementFromArray={this.removeElementFromArray}
         />
-        // <Abilities unit={unit} />
-        <h2>Character sheet for {unit}</h2>
+      <Abilities unit={unit}
+          abilities={this.props.characterStateObject['abilities']}
+          setArray={this.setArray}
+          removeElementFromArray={this.removeElementFromArray}
+        />
+
+
       </div>
     }
 }

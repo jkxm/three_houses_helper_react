@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CharacterSheet from './CharacterSheet.js';
 import {class_rates, class_groups, base_stats, houses, unit_list} from './growth_rates.js';
-import {spells, combat_arts, universal_arts, abilities} from './spells.js';
+import {spells, combat_arts, universal_arts, allabilities, universal_abilities} from './spells.js';
 
 
 class Teammate extends React.Component {
@@ -20,10 +20,10 @@ class Teammate extends React.Component {
 
     render() {
       var unitname = this.props.unit;
-      return <div>
-          <h2 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h2>
-          <button type='button' onClick={() => this.removeBtnHandler(unitname)}> -x- </button>
-        </div>
+      return <span>
+          <p><h2 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h2>
+          <button type='button' onClick={() => this.removeBtnHandler(unitname)}> - </button></p>
+        </span>
     }
 }
 
@@ -172,12 +172,6 @@ class TeamBar extends React.Component {
 
   removeElementFromArray = (field, element) =>{
     var unit = this.state.hilightedUnit;
-    // var temparray = this.state[unit][field];
-    // temparray.filter(e => e != element);
-    //
-    // console.log(element, field, this.state[unit][field]);
-    // this.state[unit][field] = temparray;
-    // console.log(this.state[unit][field]);
     this.state[unit][field] = element;
   }
 
@@ -195,13 +189,14 @@ class TeamBar extends React.Component {
     // });
 
     return <div>
-      {teammate_components}
-
-      <select value={this.state.selectedUnit} onChange={this.changeSelectedUnit.bind(this)}>
-        <option defaultValue disabled>select unit</option>
-        {this.state.units}
-      </select>
-      <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
+      <div className="col-lg-4">
+        {teammate_components}
+        <select value={this.state.selectedUnit} onChange={this.changeSelectedUnit.bind(this)}>
+          <option defaultValue disabled>select unit</option>
+          {this.state.units}
+        </select>
+        <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
+      </div>
       <CharacterSheet
         key={unit}
         unit={unit}
@@ -210,6 +205,7 @@ class TeamBar extends React.Component {
         characterStateObject = {this.state[unit]}
         setArray = {this.setArray}
         removeElementFromArray = {this.removeElementFromArray}
+
       />
     </div>
   }

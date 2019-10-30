@@ -21,3 +21,6 @@ div{
 p{
   display: inline;
 }
+td{
+  padding-left: 10px;
+}

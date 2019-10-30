@@ -20,10 +20,10 @@ class Teammate extends React.Component {
 
     render() {
       var unitname = this.props.unit;
-      return <span>
-          <p><h2 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h2>
-          <button type='button' onClick={() => this.removeBtnHandler(unitname)}> - </button></p>
-        </span>
+      return <p>
+          <h3 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h3>
+          <button type='button' onClick={() => this.removeBtnHandler(unitname)}> - </button>
+        </p>
     }
 }
 
@@ -189,7 +189,7 @@ class TeamBar extends React.Component {
     // });
 
     return <div>
-      <div className="col-lg-4">
+      <div className="col-lg-2">
         {teammate_components}
         <select value={this.state.selectedUnit} onChange={this.changeSelectedUnit.bind(this)}>
           <option defaultValue disabled>select unit</option>
@@ -197,16 +197,17 @@ class TeamBar extends React.Component {
         </select>
         <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
       </div>
-      <CharacterSheet
-        key={unit}
-        unit={unit}
-        intendedClass={this.state[unit].intendedClass}
-        bindClassToSheet={this.bindClassToSheet}
-        characterStateObject = {this.state[unit]}
-        setArray = {this.setArray}
-        removeElementFromArray = {this.removeElementFromArray}
-
-      />
+      <div className='col-lg-10'>
+        <CharacterSheet
+          key={unit}
+          unit={unit}
+          intendedClass={this.state[unit].intendedClass}
+          bindClassToSheet={this.bindClassToSheet}
+          characterStateObject = {this.state[unit]}
+          setArray = {this.setArray}
+          removeElementFromArray = {this.removeElementFromArray}
+        />
+      </div>
     </div>
   }
 

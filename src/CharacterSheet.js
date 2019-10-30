@@ -45,18 +45,30 @@ class GrowthRates extends React.Component{
         </tr>);
       }
       return <div>
-          <h3>Growth Rates for {intendedClass}</h3>
-          <table>
-            <tbody>
-              {tabledata}
-            </tbody>
-          </table>
-          <h3>Preview Growth Rates for {previewclass}</h3>
-          <table>
-            <tbody>
-              {preview}
-            </tbody>
-          </table>
+        <table>
+        <tr>
+          <td>
+            <div>
+              <h4>Growth Rates for {intendedClass}</h4>
+              <table>
+                <tbody>
+                  {tabledata}
+                </tbody>
+              </table>
+            </div>
+          </td>
+          <td>
+            <div>
+                <h4>Preview Growth Rates for {previewclass}</h4>
+                <table>
+                  <tbody>
+                    {preview}
+                  </tbody>
+                </table>
+            </div>
+          </td>
+        </tr>
+      </table>
       </div>
     }
 }
@@ -76,10 +88,10 @@ class LikedAndLostItems extends React.Component{
       base_stats[unit][1].forEach(function(element){
         lostitems.push(<li>{element}</li>);
       });
-      return <div>
-          <h3>Liked Items</h3>
+      return <div className='col-lg-2'>
+          <h4>Liked Items</h4>
           <ul>{likeditems}</ul>
-          <h3>Lost Items</h3>
+          <h4>Lost Items</h4>
           <ul>{lostitems}</ul>
       </div>
     }
@@ -172,8 +184,8 @@ class Abilities extends React.Component{
 
       var listcontent = this.createAbiltiesList();
 
-      return <div>
-          <h3>Selected Abilities</h3>
+      return <div className='col-lg-2'>
+          <h4>Selected Abilities</h4>
           <ul>
             {listcontent}
           </ul>
@@ -202,10 +214,10 @@ class Spells extends React.Component{
     });
 
 
-    return <div>
-      <h3>Dark/Black Magic</h3>
+    return <div className='col-lg-2'>
+      <h4>Dark/Black Magic</h4>
         <ul>{blackarr}</ul>
-      <h3>White Magic</h3>
+      <h4>White Magic</h4>
         <ul>{whitearr}</ul>
     </div>
   }
@@ -295,16 +307,16 @@ class CombatArts extends React.Component{
   render(){
     let button;
     if(this.state.arts.length == 3){
-      button = <button type='button'  disabled>Add Combat Art</button>;
+      button = <button type='button'  disabled>+</button>;
     }
     else{
-      button = <button type='button' onClick={this.setArray}>Add Combat Art</button>;
+      button = <button type='button' onClick={this.setArray}>+</button>;
     }
 
     var listcontent = this.createCombatArtList();
 
-    return <div>
-      <h3>Selected Combat Arts</h3>
+    return <div className='col-lg-3'>
+      <h4>Selected Combat Arts</h4>
       <ul>
         {listcontent}
       </ul>
@@ -380,30 +392,38 @@ class CharacterSheet extends React.Component {
 
     render(){
       var unit = this.props.unit
-      return <div className='col-lg-8'>
-        <h2>Character sheet for {unit}</h2>
-        <CharacterPortrait unit={unit} />
-        <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
-        <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
+      return <div>
 
-        <LikedAndLostItems unit={unit} />
-        <Spells unit={unit} />
-        <GrowthRates unit={unit}
-          previewclass={this.state.current_class}
-          intendedClass={this.state.intendedClass}
-          removeElementFromArray={this.removeElementFromArray}
-        />
+        <h3>Character sheet for {unit}</h3>
+        <div>
+          <div className='col-lg-4'>
+            <CharacterPortrait unit={unit} />
+            <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
+            <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
+          </div>
+          <div className='col-lg-8'>
+            <GrowthRates unit={unit}
+              previewclass={this.state.current_class}
+              intendedClass={this.state.intendedClass}
+              removeElementFromArray={this.removeElementFromArray}
+            />
+          </div>
+        </div>
 
-        <CombatArts unit={unit}
-          combatArts={this.props.characterStateObject['combatArts']}
-          setArray={this.setArray}
-          removeElementFromArray={this.removeElementFromArray}
-        />
-      <Abilities unit={unit}
-          abilities={this.props.characterStateObject['abilities']}
-          setArray={this.setArray}
-          removeElementFromArray={this.removeElementFromArray}
-        />
+        <div className='col-lg-12'>
+            <LikedAndLostItems unit={unit} />
+            <Spells unit={unit} />
+            <CombatArts unit={unit}
+              combatArts={this.props.characterStateObject['combatArts']}
+              setArray={this.setArray}
+              removeElementFromArray={this.removeElementFromArray}
+            />
+            <Abilities unit={unit}
+                abilities={this.props.characterStateObject['abilities']}
+                setArray={this.setArray}
+                removeElementFromArray={this.removeElementFromArray}
+              />
+        </div>
 
 
       </div>

@@ -14,6 +14,7 @@ code {
 }
 #root{
   width: 100vw;
+  /* position: absolute; */
 }
 div{
   display: inline-block;
@@ -24,6 +25,9 @@ p{
 td{
   padding-left: 10px;
 }
+
 .cs{
-  position: absolute;
+  position: fixed;
+  float: right;
+
 }

@@ -36,7 +36,7 @@ class GrowthRates extends React.Component{
         </tr>);
       }
       var preview = [];
-      for(var i = 0; i< stats.length; i++){
+      for(i = 0; i< stats.length; i++){
         preview.push(<tr>
           <td>{stats[i]}</td>
           <td>{baserate[i]}</td>
@@ -101,7 +101,7 @@ class Abilities extends React.Component{
     constructor(props){
       super(props);
       var maxset = false;
-      if(this.props.abilities.length == 5){
+      if(this.props.abilities.length === 5){
         maxset = !maxset;
       };
       this.state ={
@@ -148,7 +148,7 @@ class Abilities extends React.Component{
 
     removeElementFromArray = (element) =>{
       // console.log(element.target.value);
-      var abilities = this.state.abilities.filter(el => el != element.target.value)
+      var abilities = this.state.abilities.filter(el => el !== element.target.value)
       this.setState({
         abilities:abilities
       });
@@ -175,7 +175,7 @@ class Abilities extends React.Component{
     render(){
       let button;
       // if(this.state.abilities){
-      if(this.state.abilities.length == 5){
+      if(this.state.abilities.length === 5){
         button = <button type='button'  disabled>+</button>;
       }
       else{
@@ -227,7 +227,7 @@ class CombatArts extends React.Component{
   constructor(props){
     super(props);
     var maxset = false;
-    if (this.props.combatArts.length == 3){
+    if (this.props.combatArts.length === 3){
     // if (!maxset){
       maxset = true;
     }
@@ -280,7 +280,7 @@ class CombatArts extends React.Component{
 
   removeElementFromArray = (element) =>{
     // console.log(element.target.value);
-    var arts = this.state.arts.filter(el => el != element.target.value)
+    var arts = this.state.arts.filter(el => el !== element.target.value)
     this.setState({
       arts:arts
     });
@@ -306,7 +306,7 @@ class CombatArts extends React.Component{
 
   render(){
     let button;
-    if(this.state.arts.length == 3){
+    if(this.state.arts.length === 3){
       button = <button type='button'  disabled>+</button>;
     }
     else{
@@ -398,8 +398,10 @@ class CharacterSheet extends React.Component {
         <div>
           <div className='col-lg-4'>
             <CharacterPortrait unit={unit} />
-            <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
-            <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
+            <div>
+              <select onChange={this.changeCurrentClass.bind(this)}>{this.state.class_options}</select>
+              <button type='button' onClick={this.bindClassToSheet}>Bind Class to {this.props.unit}</button>
+            </div>
           </div>
           <div className='col-lg-8'>
             <GrowthRates unit={unit}

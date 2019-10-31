@@ -20,10 +20,10 @@ class Teammate extends React.Component {
 
     render() {
       var unitname = this.props.unit;
-      return <p>
-          <h3 onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h3>
-          <button type='button' onClick={() => this.removeBtnHandler(unitname)}> - </button>
-        </p>
+      return <tr>
+            <td><h3 class='pointer' onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h3></td>
+            <td><button type='button' onClick={() => this.removeBtnHandler(unitname)}> - </button></td>
+        </tr>
     }
 }
 
@@ -197,7 +197,9 @@ class TeamBar extends React.Component {
           {this.state.units}
         </select>
         <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
-        {teammate_components}
+        <table>
+          {teammate_components}
+        </table>
       </div>
 
 

@@ -20,7 +20,9 @@ div{
   display: inline-block;
 }
 p{
-  display: inline;
+  display: flex;
+  /* float: left; */
+  /* clear:none; */
 }
 td{
   padding-left: 10px;
@@ -30,4 +32,30 @@ td{
   position: fixed;
   float: right;
 
+}
+
+.pointer{
+  cursor: pointer;
+}
+button{
+  float: right;
+  display: inline-block;
+  /* margin-right: 0px; */
+  border: none;
+  padding: 0px;
+  /* width: 24px; */
+}
+li{
+  list-style: none;
+  /* display: inline;
+  display: grid; */
+  /* float: left; */
+  /* margin-top: 10px; */
+}
+select{
+  border:none;
+}
+
+.growthrates{
+  float: left;
 }

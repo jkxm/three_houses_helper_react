@@ -20,9 +20,13 @@ class Teammate extends React.Component {
 
     render() {
       var unitname = this.props.unit;
+      let button = <td><button type='button' onClick={() => this.removeBtnHandler(unitname)}> - </button></td>;
+      if(unitname === 'Byleth'){
+        button = <td></td>
+      }
       return <tr>
             <td><h3 class='pointer' onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h3></td>
-            <td><button type='button' onClick={() => this.removeBtnHandler(unitname)}> - </button></td>
+            {button}
         </tr>
     }
 }

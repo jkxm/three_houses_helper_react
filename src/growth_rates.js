@@ -37,7 +37,7 @@ var unit_list = [
   "Raphael",
   "Lysithea",
   "Ignatz",
-  "Marianna",
+  "Marianne",
   "Leonie",
   "Manuela",
   "Hanneman",

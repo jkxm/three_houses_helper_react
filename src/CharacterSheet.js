@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import {class_rates, class_groups, base_stats, houses, unit_list} from './growth_rates.js';
-import {spells, combat_arts, universal_arts, allabilities, universal_abilities} from './spells.js';
+import {spells, combat_arts, universal_arts, allabilities, universal_abilities, male,female,male_classes,female_classes,flying_classes, } from './spells.js';
 
 
 class CharacterPortrait extends React.Component{
@@ -46,28 +46,30 @@ class GrowthRates extends React.Component{
       }
       return <div clasName='growthrates'>
         <table>
-        <tr>
-          <td>
-            <div>
-              <h4>Growth Rates for {intendedClass}</h4>
-              <table>
-                <tbody>
-                  {tabledata}
-                </tbody>
-              </table>
-            </div>
-          </td>
-          <td>
-            <div>
-                <h4>Preview Growth Rates for {previewclass}</h4>
-                <table>
-                  <tbody>
-                    {preview}
-                  </tbody>
-                </table>
-            </div>
-          </td>
-        </tr>
+          <tbody>
+            <tr>
+              <td>
+                <div>
+                  <h4>Growth Rates for {intendedClass}</h4>
+                  <table>
+                    <tbody>
+                      {tabledata}
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+              <td>
+                <div>
+                    <h4>Preview Growth Rates for {previewclass}</h4>
+                    <table>
+                      <tbody>
+                        {preview}
+                      </tbody>
+                    </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
       </table>
       </div>
     }
@@ -160,8 +162,15 @@ class Abilities extends React.Component{
       var abilities = this.state.abilities;
       var selectedabilities = [];
       var personal_ability = base_stats[this.props.unit][3][0];
+      var intendedClass = this.props.intendedClass;
       // console.log(personal_ability, allabilities["Professor's Guidance"]);
       selectedabilities.push(<li>{personal_ability} : { allabilities[personal_ability][0] }</li>);
+      // var classabilities = class_rates[intendedClass][]
+      if(class_rates[intendedClass][2][0]){
+        class_rates[intendedClass][2][0].forEach(function(element){
+          selectedabilities.push(<li>{element} : {allabilities[element][0]}</li>);
+        });
+      }
       var remove = (element) => this.removeElementFromArray;
       // console.log(arts);
       abilities.forEach(function(element){
@@ -429,11 +438,13 @@ class CharacterSheet extends React.Component {
                 combatArts={this.props.characterStateObject['combatArts']}
                 setArray={this.setArray}
                 removeElementFromArray={this.removeElementFromArray}
+                intendedClass={this.state.intendedClass}
               />
               <Abilities unit={unit}
-                  abilities={this.props.characterStateObject['abilities']}
-                  setArray={this.setArray}
-                  removeElementFromArray={this.removeElementFromArray}
+                abilities={this.props.characterStateObject['abilities']}
+                setArray={this.setArray}
+                removeElementFromArray={this.removeElementFromArray}
+                intendedClass={this.state.intendedClass}
                 />
           </div>
 

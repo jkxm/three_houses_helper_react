@@ -48,18 +48,80 @@ var unit_list = [
   "Alois",
   "Gilbert",
   "Shamir"
+];
+
+var male = [
+  "Hubert",
+  "Ferdinand",
+  "Caspar",
+  "Linhardt",
+  "Dimitri",
+  "Dedude",
+  "Felix",
+  "Ashe",
+  "Sylvain",
+  "Claude",
+  "Lorenz",
+  "Raphael",
+  "Ignatz",
+  "Hanneman",
+  "Seteth",
+  "Cyril",
+  "Alois",
+  "Gilbert",
+];
+
+var female = [
+  "Edelgard",
+  "Dorothea",
+  "Bernadetta",
+  "Petra",
+  "Mercedes",
+  "Annette",
+  "Ingrid",
+  "Hilda",
+  "Lysithea",
+  "Marianne",
+  "Leonie",
+  "Manuela",
+  "Flayn",
+  "Catherine",
+  "Shamir"
+];
+
+var male_classes = [
+  "Brawler",
+  "Dark Mage",
+  "Hero",
+  "Grappler",
+  "Dark Bishop",
+  "War Master",
+];
+
+var female_classes = [
+  "Pegasus Knight",
+  "Falcon Knight",
+  "Gremory",
 ]
 
 // unit:  [growth][lostitem][likeditem][perosnal ability, [unit specific ablities],[unit_specific arts],
 // [unit_specific arts] = [["art name"]]
 //
+var flying_classes = [
+  "Pegasus Knight",
+  "Wyvern Master",
+  "Wyvern Rider",
+  "Barbarossa",
+  "Falcon Knight",
+  "Wyvern Lord"
+]
 
 var base_stats = {
   "Byleth"    :[
     [45,45,35,45,45,45,35,30,45],
     [],//lost
     [],//liked
-    ["Professor’s Guidance",["Battalion Vantage" ,	"Model Leader" ,"	Battalion Desperation" ,"	Rally Movement" ,]],//abilites
+    ["Professor’s Guidance",["Battalion Vantage" ,	"Model Leader" ,"	Battalion Desperation" ,"	Rally Movement" ,"White Magic Avoid +20",]],//abilites
     ["Bane of Monsters",	"Windsweep",	"Draining Blow",	"Mystic Blow"],//dependent arts
 
   ],
@@ -67,7 +129,7 @@ var base_stats = {
     [40,55,45,45,40,30,35,35,60],
     ["White Glove",	"Time-worn Quill Pen", "Eastern Porcelain"],
     ["Carnation", "Armored Bear Stuffy", "Monarch Studies Book", "Board Game"],
-    ["Imperial Lineage",["Battalion Vantage" ,	"Model Leader" ,	"Battalion Renewal" ,	"Rally Charm" ,]],
+    ["Imperial Lineage",["Battalion Vantage" ,	"Model Leader" ,	"Battalion Renewal" ,	"Rally Charm" ,"Black Magic Crit +10",]],
     ["Haze Strike","Hexblade","Monster Breaker","Lightning Axe"]
   ],
   "Hubert"    :[
@@ -75,27 +137,27 @@ var base_stats = {
     ["Hresvelg Treatise",	"Noxious Handkerchief",	"Folding Razor"],
     ["Coffee Beans", "Board Game", "The History of Fodlan"],
     ["Officer Duty",["Rally Magic" ,	"Battalion Wrath" ,	"Rally Resistance" ,	"Battalion Desperation" , "Rally Speed" ,]],
-    ["Heavy Draw", "Schism Shot"]
+    ["Heavy Draw", "Schism Shot", "Frozen Lance"]
   ],
   "Dorothea"  :[
     [40,20,40,45,40,35,15,35,40],
     ["Silver Brooch", "Songstress Poster","Lovely Comb"],
     ["Book of Sheet Music", "Gemstone Beads", "Stylish Hair Clip"],
-    ["Songstress",["Rally Charm" ,	"Battalion Desperation" ,]],
+    ["Songstress",["Rally Charm" ,	"Battalion Desperation" ,"White Magic Avoid +20"]],
     ["Hexblade"]
   ],
   "Ferdinand" :[
     [50,45,20,40,50,40,35,20,40],
     ["Maintenance Oil",	"Agricultural Survey",	"Bag of Tea Leaves"],
     ["Riding Boots", "Whetstone", "Tea Leaves"],
-    ["Confidence",["Rally Dexterity" ,	"Battalion Desperation" ,]],
+    ["Confidence",["Rally Dexterity" ,	"Battalion Desperation" ,"Seal Speed"]],
     ["Sunder",	"Shatter Slash",	"Swift Strikes",	"Focused Strike", "Armored Strike"]
   ],
   "Bernadetta":[
     [35,35,20,55,50,25,20,30,35],
     ["Needle and Thread",	"Still-Life Picture",	"Hedgehog Case"],
     ["Pitcher Plant", "Armored Bear Stuffy", "Book of Sheet Music", "Watering Can", "Landscape Painting", "Dapper Handkerchief"],
-    ["Persecution Complex",["Battalion Wrath"]],
+    ["Persecution Complex",["Battalion Wrath", "Pass"]],
     ["Vengeance","Deadeye", "Encloser"]
   ],
   "Caspar"    :[
@@ -123,7 +185,7 @@ var base_stats = {
     [55,60,20,50,50,25,40,20,55],
     ["Dulled Longsword",	"Black Leather Gloves",	"Training Logbook"],
     ["Training Weight", "Whetstone", "Riding Boots", "Ceremonial Sword"],
-    ["Royal Lineage",["Battalion Wrath ",	"Model Leader" ,	"Battalion Vantage" ,	"Rally Charm" ,]],
+    ["Royal Lineage",["Battalion Wrath ",	"Model Leader" ,	"Battalion Vantage" ,	"Rally Charm" ,"Seal Movement"]],
     ["Sunder","Windsweep","Monster Piercer","Glowing Ember"]
   ],
   "Dedude"    :[
@@ -137,7 +199,7 @@ var base_stats = {
     [45,55,30,45,55,40,30,20,30],
     ["Black Iron Spur", "Sword Belt Fragment",	"Toothed Dagger"],
     ["Smoked Meat", "Hunting Dagger", "Training Weight", "Ceremonial Sword"],
-    ["Lone Wolf",["Battalion Vantage" ,]],
+    ["Lone Wolf",["Battalion Vantage" ,"Black Magic Crit +10"]],
     ["Sunder" ,	"Finesse Blade" ,	"Heavy Draw" ,	"Nimble Combo" ,"Mystic Blow" ,]
   ],
   "Mercedes"  :[
@@ -145,14 +207,14 @@ var base_stats = {
     ["Book of Ghost Stories", "Fruit Preserves", "How to Bake Sweets"],
     ["Lavender", "Tasty Bake Treat", "Goddess Statuette", "Armored Bear Stuffy", "Gemstone Beads"],
     ["Live to Serve",["Battalion Renewal"]],
-    []
+    ["Waning Shot"]
   ],
   "Ashe"      :[
     [35,35,25,55,50,40,20,35,25],
     ["Moon Knight’s Tale", "Evil-Repelling Amulet", "Bundle of Herbs"],
     ["Violet", "Legends of Chivalry", "Exotic Spices", "Tasty Baked Treat", "Ancient Coin"],
     ["Lockpick",["Battalion Desperation"]],
-    ["Focused Strike" ,	"Deadeye" ,	"Waning Shot" ,]
+    ["Focused Strike" ,	"Deadeye" ,	"Waning Shot" ,"Shatter Smash"]
   ],
   "Annette"   :[
     [25,30,50,50,35,35,20,30,35],
@@ -165,7 +227,7 @@ var base_stats = {
     [55,45,30,35,50,35,40,25,40],
     ["Unused Lipstick", "Crumpled Love Letter", "The History of Sreng"],
     ["Landscape Painting", "Dapper Handkerchief", "Board Game"],
-    ["Philanderer",["Battalion Vantage" ,]],
+    ["Philanderer",["Battalion Vantage" ,"Black Magic Avo +20"]],
     ["Monster Piercer" ,	"Swift Strikes" ,	"Spike" ,	"Lightning Axe" ,]
   ],
   "Ingrid"    :[
@@ -180,7 +242,7 @@ var base_stats = {
     ["Leather Bow Sheath", "Mild Stomach Poison", "Board Game Piece"],
     ["Riding Boots", "Book of Crest Designs", "Exotic Spices", "Board Game"],
     ["Leicester Lineage",["Battalion Desperation" ,	"Model Leader ",	"Battalion Wrath" ,	"Rally Charm" ]],
-    ["Bane of Monsters" ,	"Finesse Blade" ,	"Monster Blast" ,	"Encloser" ,]
+    ["Bane of Monsters" ,	"Finesse Blade" ,	"Monster Blast" ,	"Encloser" ,"Diamond Axe"]
   ],
   "Lorenz"    :[
     [55,40,40,45,40,25,30,40,35],
@@ -193,7 +255,7 @@ var base_stats = {
     [50,45,25,30,50,35,35,20,50],
     ["Handmade Hair Clip","Spotless Bandage", "Used Bottle of Perfume"],
     ["Anemone", "Gemstone Beads", "Dapper Handkerchief", "Book of Sheet Music", "Stylish Hair Clip", "Armored Bear Stuffy"],
-    ["Advocate",["Battalion Wrath"]],
+    ["Advocate",["Battalion Wrath", "Seal Speed"]],
     ["Shatter Slash" ,	"Spike" ,	"Diamond Axe" ,]
   ],
   "Raphael"   :[
@@ -208,13 +270,13 @@ var base_stats = {
     ["Encyclopedia of Sweets", "Princess Doll", "New Bottle of Perfume"],
     ["Lily", "Armored Bear Stuffy", "Arithmetic Textbook", "Tasty Baked Treat", "Book of Crest Designs"],
     ["Mastermind",["Battalion Desperation"]],
-    []
+    ["Soulblade"]
   ],
   "Ignatz"    :[
     [35,35,30,50,50,55,25,35,25],
     ["Blue Stone", "Art Book", "Letter to the Goddess"],
     ["Forget-me-nots", "Ancient Coin", "Landscape Painting", "Goddess Statuette", "Ceremonial Sword"],
-    ["Watchful Eye",["Rally Speed" ,	"Battalion Desperation" ,	"Rally Dexterity" ,	"Battalion Vantage" , "Rally Strength" ,]],
+    ["Watchful Eye",["Rally Speed" ,	"Battalion Desperation" ,	"Rally Dexterity" ,	"Battalion Vantage" , "Rally Strength" ,"Seal Strength"]],
     ["Haze Slice" ,	"Break Shot" , "Ward Arrow" ,]
   ],
   "Marianne"  :[
@@ -222,7 +284,7 @@ var base_stats = {
     ["Bag of Seeds", "How to be Tidy", "Confessional Letter"],
     ["Lily of the Valley", "Dapper Handkerchief", "Floral Adornment", "Armored Bear Stuffy"],
     ["Animal Friend",["Battalion Renewal"]],
-    ["Soulblade" ,]
+    ["Soulblade" ,"Frozen Lance"]
   ],
   "Leonie"    :[
     [40,40,20,55,60,40,40,15,40],
@@ -256,7 +318,7 @@ var base_stats = {
     [25,25,55,45,35,15,25,50,45],
     ["Antique Clasp", "Old Map of Enbarr", "Dusty Book of Fables"],
     ["Forget-me-nots", "Tasty Baked Treat", "Armored Bear Stuffy", "Stylish Hair Clip", "Dapper Handkerchief"],
-    ["Lily’s Poise",["Rally Luck" ,	"Battalion Renewal" ,]],
+    ["Lily’s Poise",["Rally Luck" ,	"Battalion Renewal" ,"Seal Magic"]],
     ["Hit and Run" ,	"Frozen Lance" ,]
   ],
   "Cyril"     :[
@@ -305,33 +367,37 @@ var class_groups = {
   "Master":["Enlightened One","Emperor","Great Lord","Barbarossa","Falcon Knight","Wyvern Lord","Mortal Savant","Great Knight","Bow Knight","Dark Knight","Holy Knight","War Master","Gremory"],
   }
 
-// class specific stuff
-// [growth rates][mastery skills][min grade for certification]
 
-
-
-// class: [growth][[class abilites],class arts][class masteries][skill requirements]
+// class:[
+//   [growth rates],
+//   [class mastery],
+//   [[class abilities], class specific art],
+//   [skill req for class]
+// ]
 // [class masteries]
 
 var class_rates = {
   "Noble"           :[
     [0,0,0,0,0,0,0,0,5        ],
+    ["HP +5"],
     [
-      ["HP +4 Ability","Raises max health points by 4"]
+      []
     ],
     []
   ],
   "Commoner"        :[
     [0,0,0,0,0,0,0,0,0        ],
+    ["HP +5"],
     [
-      ["HP +4 Ability","Raises max health points by 4"]
+      []
     ],
     []
   ],
   "Dancer"          :[
     [20, -5, 0,0,0,0,-5,-5,10 ],
+    [],
     [
-      ["Special Dance Ability","When using Dance, grants +4 Dex / Spd / Lck to target ally."]
+      ["Dance", "Special Dance"]
     ],
     []
   ],
@@ -339,28 +405,33 @@ var class_rates = {
 
   "Myrmidon"        :[
     [10,0,0,0,5,0,0,-5,5      ],
+    ["Speed +2"],
     [
-      ["Speed +2 Ability","Raises unit's Speed by 3"],
-      ["Swap Combat Art","Unit swaps positions with an adjacent ally."]
+      []
     ],
     ["Sword D"]
   ],
   "Soldier"         :[
     [10,0,0,5,0,0,0,-5,5      ],
-    [["Defense +2 Ability","Raises unit's Defense by 2"],["Reposition Combat Art","Adjacent ally is moved to the opposite side of the unit."]],["Lance D"]],
+    ["Defense +2"],
+    [
+      []
+    ],
+    ["Lance D"]
+  ],
   "Fighter"         :[
     [10,5,0,0,0,0,0,-5,5      ],
+    ["Strength +2"],
     [
-      ["Strength +2 Ability","Raises unit's Strength by 2."],
-      ["Shove Combat Art","Unit pushes an adjacent ally forward one space."]
+      []
     ],
     ["Axe D", "Bow D", "Brawl D"]
   ],
   "Monk"            :[
     [5,0,0,0,0,0,0,5,5        ],
+    ["Magic +2"],
     [
-      ["Magic +2 Ability","	Raises unit's Magic by 2."],
-      ["Draw Back Combat Art","Unit moves one space away from an adjacent ally and pulls the ally along."]
+      []
     ],
     ["Reason D", "Faith D"]
   ],
@@ -368,87 +439,97 @@ var class_rates = {
 
   "Lord"            :[
     [20,0,0,10,0,0,0,0,10     ],
+    ["Resistance +2"],
     [
-      ["Resistance +2 Ability","Raises unit's Resistance by 2."],
-      ["Subdue Combat Art","Sword Combat Art that leaves the enemy with 1 HP."]
+      ["Charm"],
     ],
     ["Sword D+","Authority C"]
   ],
   "Mercenary"       :[
     [20,5,0,0,5,0,0,-5,5      ],
+    ["Vantage"],
     [
-      ["Vantage Ability","When foe initiates combat, unit still attacks first if less than 50% HP."]
+      []
     ],
     ["Sword C"]
   ],
   "Thief"           :[
     [20,0,0,10,10,0,0,0,5     ],
+    ["Steal"],
     [
-      ["Steal Ability","Allows unit to steal a non-weapon item from a foe with lower Speed."]
+      ["Steal", "Locktouch"]
     ],
     ["Sword C"]
   ],
   "Armored Knight"  :[
     [20,0,0,0,-10,0,5,0,5     ],
+    ["Armored Blow"],
     [
-      ["Armored Blow Ability","If unit initiates combat, grants +6 Def during combat."]
+      []
     ],
     ["Axe C", "Hvy Armor D"]
   ],
   "Cavalier"        :[
     [20,5,0,5,-10,0,5,0,5     ],
+    ["Desperation"],
     [
-      ["Desperation Ability","If unit initiates combat with HP equal or less than 50%, unit's follow-up attack occurs before foe's counterattack."]
+      ["Canto"]
     ],
     ["Lance C","Riding D"]
   ],
   "Brigand"         :[
     [30,10,0,0,0,0,0,-5,5     ],
+    ["Death Blow"],
     [
-      ["Death Blow Ability","If unit initiates combat, grants +6 Str during combat."]
+      []
     ],
     ["Axe C"]
   ],
   "Archer"          :[
     [5,0,0,10,0,5,0,0,5       ],
+    ["Hit +20"],
     [
-      ["Hit +20 Ability","Increases Hit rate by 20."]
+      ["Bowrange +1"]
     ],
     ["Bow C"]
   ],
   "Brawler"         :[
     [30,0,-10,10,10,0,0,-10,5 ],
+    ["Unarmed Combat"],
     [
-      ["Unarmed Combat Ability","Allows unit to attack when no weapons are equipped."]
+      ["Unarmed Combat"]
     ],
     ["Brawl C"]
   ],
   "Mage"            :[
     [5,-5,10,5,0,0,-5,5,5     ],
+    ["Fiendish Blow"],
     [
-      ["Fiendish Blow Ability","If unit initiates combat, grants +6 Mag during combat."]
+      ["Fire"]
     ],
     ["Reason C"]
   ],
   "Dark Mage"       :[
     [5,-5,10,5,0,0,-5,5,0     ],
+    ["Poison Strike"],
     [
-      ["Poison Strike Ability","If unit initiates combat, hit will cause foe lose up to 20% of max HP after combat."]
+      ["Miasma Δ", "Heartseeker"]
     ],
     ["Reason C"]
   ],
   "Priest"          :[
     [5,-5,5,5,0,0,-5,10,10    ],
+    ["Miracle"],
     [
-      ["Miracle Ability","Luck% Chance to survive lethal damage with 1 HP if HP is above 1"]
+      ["Heal", "White Magic Heal +5"]
     ],
     ["Faith C"]
   ],
   "Pegasus Knight"  :[
     [15,0,0,0,10,0,0,5,10     ],
+    ["Darting Blow"],
     [
-      ["Darting Blow Ability","If unit initiates combat, grants +6 AS during combat."],
-      ["Triangle Attack Combat Art","Combat Art that deals +8 Mt, +30 Hit, +40 Crit, can only be activated when 3 allied units (including user) are adjacent to an enemy."]
+      ["Canto", "Avoid +10"],
     ],
     ["Lance C","Flying D"]
   ],
@@ -456,108 +537,123 @@ var class_rates = {
 
   "Armored Lord"    :[
     [20,5,5,0,0,0,5,5,10      ],
+    ["Pomp and Circumstance"],
     [
-      ["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]
+      ["Charm", "Axefaire"]
     ],
     []
   ],
   "High Lord"       :[
     [20,5,0,5,0,0,5,0,10      ],
+    ["Pomp and Circumstance"],
     [
-      ["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]
+      ["Charm", "Lancefaire"]
     ],
     []
   ],
   "Wyvern Master"   :[
     [20,10,0,0,5,0,5,0,10     ],
+    ["Pomp and Circumstance"],
     [
-      ["Pomp and Circumstance Ability","Raises unit's Luck and Charm by 4."]
+      ["Charm", "Bowfaire", "Canto"]
     ],
     []
   ],
   "Hero"            :[
     [30,10,0,0,10,0,0,-5,5    ],
+    ["Defiant Strength"],
     [
-      ["Defiant Strength Ability","Grants +8 Str when HP is less than 25%."]
+      ["Swordfaire", "Vantage"]
     ],
     ["Sword B","Axe C"]
   ],
   "Swordmaster"     :[
     [25,10,0,0,20,0,0,-5,5    ],
     [
-      ["Astra Combat Art","A Sword Combat Art that attacks 5 times at 30% Mt. (Swordsmaster Exclusive)"]
+      ["Swordfaire", "Sword Crit +10"],
+      "Astra"
     ],
     ["Sword A"]
   ],
   "Assassin"        :[
     [20,0,0,20,20,0,0,0,0     ],
+    ["Lethality"],
     [
-      ["Lethality Ability","(Dex x 0.25)% Chance to instantly kill a foe when damage is dealt."],
-      ["Assassinate Combat Art","A Combat Art that grants +15 Hit and +15 Avo, and can kill enemies instantly. (Assassin Exclusive)"]
+      ["Swordfaire", "Locktouch", "Stealth"],
+      "Assassinate"
     ],
     ["Sword B","Bow C"]
   ],
   "Fortress Knight" :[
     [30,10,0,0,-10,0,15,0,5   ],
+    ["Pavise"],
     [
-      ["Pavise Ability","Dex% chance to reduce sword / lance / axe / brawling damage by half."]
+      ["Axefaire", "Weight -5"]
     ],
     ["Axe B","Hvy Armor B"]
   ],
   "Paladin"         :[
     [30,10,0,5,-10,5,5,5,5    ],
+    ["Aegis"],
     [
-      ["Aegis Ability","Dex% chance to reduce bow / magic damage by half."]
+      ["Canto", "Lancefaire", "	Terrain Resistance"]
     ],
     ["Lance B","Riding B"]
   ],
   "Wyvern Rider"    :[
     [30,10,-5,0,0,0,5,-5,5    ],
+    ["Seal Defense"],
     [
-      ["Seal Defense Ability","If unit damages foe during combat, they suffer -6 Def for 1 turn."]
+      ["Canto", "Axefaire"]
     ],
     ["Axe B","Flying C"]
   ],
   "Warrior"         :[
     [40,15,-5,0,0,0,0,0,5     ],
+    ["Wrath"],
     [
-      ["Wrath Ability","If foe initiates combat when unit's HP is 50% or less, grants +50 Crit."]
+      ["Axefaire", "Axe Crit +10"]
     ],
     ["Axe A"]
   ],
   "Sniper"          :[
     [10,5,0,20,0,10,0,0,5     ],
     [
-      ["Hunter's Volley Combat Art","A Bow Combat Art that adds +1 Mt, +15 Hit, +10 Crit, and strikes twice. (Sniper Exclusive)"]
+      ["Bowfaire", "Bowrange +1"],
+      "Hunter's Volley"
     ],
     ["Bow A"]
   ],
   "Grappler"        :[
     [40,10,0,10,10,0,0,0,5    ],
+    ["Tomebreaker"],
     [
-      ["Tomebreaker Ability","Grants Hit / Avo +20 when using brawling against magic users."],
-      ["Fierce Iron First Combat Art", "A Brawling Combat Art that grants +1 Mt, +10 Hit, +10 Crit and strikes 3 times. (Grappler Exclusive)"]
+      ["Fistfaire", "Unarmed Combat"],
+      "Fierce Iron First"
     ],
     ["Brawl A"]
   ],
   "Warlock"         :[
     [10,0,10,0,0,0,-5,5,5     ],
+    ["Bowbreaker"],
     [
-      ["Bowbreaker Ability","	Grants Hit / Avo +20 when using magic against bow users."]
+      ["Black Tomefaire", "Black Magic Uses x2"],
     ],
     ["Reason A"]
   ],
   "Dark Bishop"     :[
     [10,0,10,0,0,0,-5,5,0     ],
+    ["Lifetaker"],
     [
-      ["Lifetaker Ability","Unit recovers HP equal to 50% of damage dealt after defeating a foe."]
+      ["Miasma Δ", "Fiendish Blow", "Heartseeker"]
     ],
     ["Reason A"]
   ],
   "Bishop"          :[
     [10,0,10,0,0,10,-5,5,10   ],
+    ["Renewal"],
     [
-      ["Renewal Ability","Unit recovers up to 20% of max HP at the start of each turn."]
+      ["White Magic Uses x2", "White Magic Heal +10", "Terrain Resistance"],
     ],
     ["Faith A"]
   ],
@@ -565,93 +661,106 @@ var class_rates = {
 
   "Enlightened One" :[
     [20,10,10,0,0,0,5,0,5     ],
+    ["Sacred Power"],
     [
-      ["Sacred Power Ability","Adjacent allies deal 3 extra damage and take 3 less damage during combat."]
+      ["Swordfaire", "Terrain Resistance"],
     ],
     []
   ],
   "Emperor"         :[
     [30,10,10,0,0,0,5,5,10    ],
     [
-      ["Flickering Flower Combat Art","An attack that seals the enemy’s movement. (Exclusive to Emperor)"]
+      ["Charm", "Axefaire"],
+      "Flickering Flower"
     ],
     []
   ],
   "Great Lord"      :[
     [30,10,0,10,0,0,5,0,10    ],
     [
-      ["Paraselene Combat Art","A Lance Combat Art that grants +10 Mt, +10 Avo, and moves the unit back one space after attacking. (Exclusive to Great Lord)"]
+      ["Charm", "Lancefaire"],
+      "Paraselene"
     ],
     []
   ],
   "Barbarossa"      :[
     [30,15,0,0,10,0,5,0,10    ],
     [
-      ["Wind God Combat Art","A bow attack with exceptional range. (Exclusive to Barbarossa)"]
+      ["Charm", "Bowfaire", "Canto"],
+      "Wind God"
     ],
     []
   ],
   "Falcon Knight"   :[
     [30,10,0,0,20,0,0,5,10    ],
+    ["Defiant Avo"],
     [
-      ["Defiant Avo Ability","Grants +30 Avo when HP is equal to or below 25%."]
+      ["Canto", "Lancefaire", "Avo +10"]
     ],
     ["Sword C", "Lance A","Flying B+"]
   ],
   "Wyvern Lord"     :[
     [30,15,-5,0,10,0,5,0,5    ],
+    ["Defiant Crit"],
     [
-      ["Defiant Crit Ability","Grants +50 Crit when HP is equal to or below 25%."]
+      ["Canto", "Axefaire", "Avo +10"]
     ],
     ["Lance C", "Axe A","Flying A"]
   ],
   "Mortal Savant"   :[
     [20,10,10,0,-10,10,0,0,5  ],
+    ["Warding Blow"],
     [
-      ["Warding Blow Ability","If unit initiates combat, grants +6 Res during combat."]
+      ["Swordfaire", "Black Tomefaire"]
     ],
     ["Sword A","Reason B+"]
   ],
   "Great Knight"    :[
     [30,10,0,0,-10,0,5,-5,5   ],
+    ["Defiant Def"],
     [
-      ["Defiant Def Ability","Grants +6 Def when HP is equal to or below 25%"]
+      ["Canto", "Lancefaire", "Axefaire"]
     ],
     ["Axe B+", "Hvy Armor A","Riding B+"]
   ],
   "Bow Knight"      :[
     [10,0,0,0,-5,0,0,0,5      ],
+    ["Defiant Spd"],
     [
-      ["Defiant Spd Ability","Grants +6 Speed when HP is equal to or below 25%."]
+      ["Canto","Bowfaire","Bowrange +2"]
     ],
     ["Lance C", "Bow A","Riding A"]
   ],
   "Dark Knight"     :[
     [10,5,10,0,-5,0,5,10,5    ],
+    ["Seal Resistance"],
     [
-      ["Seal Resistance Ability","If unit damages foe during combat, they suffer -6 Res for 1 turn after combat."]
+      ["Canto","Black Tomefaire","Dark Tomefaire"]
     ],
     ["Lance C","Reason B+","Riding A"]
   ],
   "Holy Knight"     :[
     [10,0,10,0,-5,10,5,10,10  ],
+    ["Defiant Res"],
     [
-      ["Defiant Res Ability","Grants +8 Res when HP is equal to or below 25%."]
+      ["Canto","White Tomefaire","Terrain Resistance"]
     ],
     ["Lance C","Faith B+","Riding A"]
   ],
   "War Master"      :[
     [40,15,0,0,10,0,0,0,5     ],
+    ["Quick Riposte"],
     [
-      ["Quick Riposte Ability","If foe initiates combat while unit's HP is 50% or more, unit makes a guaranteed follow-up attack."],
-      ["War Master's Strike Combat Art","Axe Combat Art that grants +3 Mt, +30 Hit, and is effective against all enemy types."]
+      ["Fistfaire","Axefaire","Crit +20"],
+      "War Master's Strike"
     ],
     ["Axe A","Brawl A"]
   ],
   "Gremory"         :[
     [10,0,10,10,0,0,0,5,10    ],
+    ["Defiant Mag"],
     [
-      ["Defiant Mag Ability","Grants +8 Mag when HP is equal to or below 25%."]
+      ["Black Magic Uses x2","Dark Magic Uses x2","White Magic Uses x2"]
     ],
     ["Reason A","Faith A"]
   ],
@@ -661,7 +770,7 @@ var class_rates = {
 
 
 
-export {class_rates, class_groups, unit_list};
+export {class_rates,class_groups,unit_list,male,female,male_classes,female_classes,flying_classes,};
 // export {class_groups};
 export {base_stats};
 export {houses};

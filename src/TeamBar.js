@@ -25,7 +25,7 @@ class Teammate extends React.Component {
         button = <td></td>
       }
       return <tr>
-            <td><h3 class='pointer' onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h3></td>
+            <td><h3 className='pointer' onClick={() => this.changeHilightedUnit(unitname)}>{this.props.unit}</h3></td>
             {button}
         </tr>
     }
@@ -180,7 +180,6 @@ class TeamBar extends React.Component {
     this.state[unit][field] = element;
   }
 
-
   render(){
     var teammate_components = this.state.teammates.map(function(unitname){
       return unitname
@@ -202,7 +201,9 @@ class TeamBar extends React.Component {
         </select>
         <button type='button' onClick={this.addBtnHandler}>Add Teammate </button>
         <table>
-          {teammate_components}
+          <tbody>
+            {teammate_components}
+          </tbody>
         </table>
       </div>
 

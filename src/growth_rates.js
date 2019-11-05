@@ -104,6 +104,7 @@ var female_classes = [
   "Gremory",
 ]
 
+
 // unit:  [growth][lostitem][likeditem][perosnal ability, [unit specific ablities],[unit_specific arts],
 // [unit_specific arts] = [["art name"]]
 //
@@ -114,6 +115,12 @@ var flying_classes = [
   "Barbarossa",
   "Falcon Knight",
   "Wyvern Lord"
+]
+
+var lords = [
+  "Edelgard",
+  "Dimitri",
+  "Claude"
 ]
 
 var base_stats = {
@@ -130,7 +137,7 @@ var base_stats = {
     ["White Glove",	"Time-worn Quill Pen", "Eastern Porcelain"],
     ["Carnation", "Armored Bear Stuffy", "Monarch Studies Book", "Board Game"],
     ["Imperial Lineage",["Battalion Vantage" ,	"Model Leader" ,	"Battalion Renewal" ,	"Rally Charm" ,"Black Magic Crit +10",]],
-    ["Haze Strike","Hexblade","Monster Breaker","Lightning Axe"]
+    ["Haze Strike","Hexblade","Monster Breaker","Lightning Axe", "Subdue"]
   ],
   "Hubert"    :[
     [35,30,55,45,45,35,25,40,35],
@@ -186,7 +193,7 @@ var base_stats = {
     ["Dulled Longsword",	"Black Leather Gloves",	"Training Logbook"],
     ["Training Weight", "Whetstone", "Riding Boots", "Ceremonial Sword"],
     ["Royal Lineage",["Battalion Wrath ",	"Model Leader" ,	"Battalion Vantage" ,	"Rally Charm" ,"Seal Movement"]],
-    ["Sunder","Windsweep","Monster Piercer","Glowing Ember"]
+    ["Sunder","Windsweep","Monster Piercer","Glowing Ember","Subdue"]
   ],
   "Dedude"    :[
     [60,50,15,30,20,25,50,10,30],
@@ -242,7 +249,7 @@ var base_stats = {
     ["Leather Bow Sheath", "Mild Stomach Poison", "Board Game Piece"],
     ["Riding Boots", "Book of Crest Designs", "Exotic Spices", "Board Game"],
     ["Leicester Lineage",["Battalion Desperation" ,	"Model Leader ",	"Battalion Wrath" ,	"Rally Charm" ]],
-    ["Bane of Monsters" ,	"Finesse Blade" ,	"Monster Blast" ,	"Encloser" ,"Diamond Axe"]
+    ["Bane of Monsters" ,	"Finesse Blade" ,	"Monster Blast" ,	"Encloser" ,"Diamond Axe", "Subdue"]
   ],
   "Lorenz"    :[
     [55,40,40,45,40,25,30,40,35],
@@ -569,6 +576,7 @@ var class_rates = {
   ],
   "Swordmaster"     :[
     [25,10,0,0,20,0,0,-5,5    ],
+    [],
     [
       ["Swordfaire", "Sword Crit +10"],
       "Astra"
@@ -596,7 +604,7 @@ var class_rates = {
     [30,10,0,5,-10,5,5,5,5    ],
     ["Aegis"],
     [
-      ["Canto", "Lancefaire", "	Terrain Resistance"]
+      ["Canto", "Lancefaire","Terrain Resistance"]
     ],
     ["Lance B","Riding B"]
   ],
@@ -618,6 +626,7 @@ var class_rates = {
   ],
   "Sniper"          :[
     [10,5,0,20,0,10,0,0,5     ],
+    [],
     [
       ["Bowfaire", "Bowrange +1"],
       "Hunter's Volley"
@@ -629,7 +638,7 @@ var class_rates = {
     ["Tomebreaker"],
     [
       ["Fistfaire", "Unarmed Combat"],
-      "Fierce Iron First"
+      "Fierce Iron Fist"
     ],
     ["Brawl A"]
   ],
@@ -669,6 +678,7 @@ var class_rates = {
   ],
   "Emperor"         :[
     [30,10,10,0,0,0,5,5,10    ],
+    [],
     [
       ["Charm", "Axefaire"],
       "Flickering Flower"
@@ -677,6 +687,7 @@ var class_rates = {
   ],
   "Great Lord"      :[
     [30,10,0,10,0,0,5,0,10    ],
+    [],
     [
       ["Charm", "Lancefaire"],
       "Paraselene"
@@ -685,6 +696,7 @@ var class_rates = {
   ],
   "Barbarossa"      :[
     [30,15,0,0,10,0,5,0,10    ],
+    [],
     [
       ["Charm", "Bowfaire", "Canto"],
       "Wind God"
@@ -695,7 +707,7 @@ var class_rates = {
     [30,10,0,0,20,0,0,5,10    ],
     ["Defiant Avo"],
     [
-      ["Canto", "Lancefaire", "Avo +10"]
+      ["Canto", "Lancefaire", "Avoid +10"]
     ],
     ["Sword C", "Lance A","Flying B+"]
   ],
@@ -703,7 +715,7 @@ var class_rates = {
     [30,15,-5,0,10,0,5,0,5    ],
     ["Defiant Crit"],
     [
-      ["Canto", "Axefaire", "Avo +10"]
+      ["Canto", "Axefaire", "Avoid +10"]
     ],
     ["Lance C", "Axe A","Flying A"]
   ],
@@ -773,5 +785,5 @@ var class_rates = {
 export {class_rates,class_groups,unit_list,male,female,male_classes,female_classes,flying_classes,};
 // export {class_groups};
 export {base_stats};
-export {houses};
+export {houses, lords};
 // export {unit_list};

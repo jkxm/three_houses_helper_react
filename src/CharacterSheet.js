@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import {class_rates, class_groups, base_stats, houses, unit_list} from './growth_rates.js';
-import {spells, combat_arts, universal_arts, allabilities, universal_abilities, male,female,male_classes,female_classes,flying_classes, } from './spells.js';
+import {class_rates, class_groups, base_stats, houses, unit_list, male,female,male_classes,female_classes,flying_classes, lords} from './growth_rates.js';
+import {spells, combat_arts, universal_arts, allabilities, universal_abilities, } from './spells.js';
 
 
 class CharacterPortrait extends React.Component{
@@ -118,8 +118,17 @@ class Abilities extends React.Component{
     }
 
     componentDidMount(){
+      var femaleabilities = ["Darting Blow", "Defiant Avo", "Defiant Mag"];
+      var maleabilities = ["Defiant Str", "Quick Riposte", "Poison Strike", "Lifetaker"];
       var ability_options = [];
       var all_abilities = base_stats[this.props.unit][3][1].concat(universal_abilities);
+      if(male.includes(this.props.unit)){
+        all_abilities = all_abilities.concat(maleabilities);
+      }
+      else{
+        // console.log("not a male");
+        all_abilities = all_abilities.concat(femaleabilities);
+      }
 
       all_abilities.forEach(function(element){
         ability_options.push(<option value={element}>{element}</option>);
@@ -149,7 +158,7 @@ class Abilities extends React.Component{
     };
 
     removeElementFromArray = (element) =>{
-      // console.log(element.target.value);
+
       var abilities = this.state.abilities.filter(el => el !== element.target.value)
       this.setState({
         abilities:abilities
@@ -163,16 +172,15 @@ class Abilities extends React.Component{
       var selectedabilities = [];
       var personal_ability = base_stats[this.props.unit][3][0];
       var intendedClass = this.props.intendedClass;
-      // console.log(personal_ability, allabilities["Professor's Guidance"]);
       selectedabilities.push(<li>{personal_ability} : { allabilities[personal_ability][0] }</li>);
       // var classabilities = class_rates[intendedClass][]
       if(class_rates[intendedClass][2][0]){
-        class_rates[intendedClass][2][0].forEach(function(element){
+        var classabilities = class_rates[intendedClass][2][0];
+        classabilities.forEach(function(element){
           selectedabilities.push(<li>{element} : {allabilities[element][0]}</li>);
         });
       }
       var remove = (element) => this.removeElementFromArray;
-      // console.log(arts);
       abilities.forEach(function(element){
         // console.log(element);
         var li =  <li>{element} : {allabilities[element][0]}
@@ -260,10 +268,19 @@ class CombatArts extends React.Component{
     var art_options = [];
     var all_arts = base_stats[this.props.unit][4].concat(universal_arts);
 
+    // if(males.contain(this.props.unit)){
+    //
+    // }
     // combat art options for specific unit
     all_arts.forEach(function(element){
       art_options.push(<option value={element}>{element}</option>);
     });
+
+    // // subdue
+    // if(lords.contains(this.props.unit)){
+    //
+    // }
+
 
     this.setState({
       currentArt:all_arts[0],
@@ -307,6 +324,11 @@ class CombatArts extends React.Component{
     var selectedCombatArts = [];
     var remove = (element) => this.removeElementFromArray;
     // console.log(arts);
+    var intendedClass = this.props.intendedClass;
+    if(class_rates[intendedClass][2][1]){
+      var classart = class_rates[intendedClass][2][1];
+      selectedCombatArts.push(<li>{classart} : {combat_arts[classart][1]}</li>)
+    }
     arts.forEach(function(element){
       // console.log(element);
       var li =  <li>

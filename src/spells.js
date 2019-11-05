@@ -105,7 +105,7 @@ var combat_arts = {
     "Dust"                :  [[20,"–" ,"–" ,1,3 ], "Crusher only; inflicts Def -5 on foe for 1 turn, effective against Dragon foes."],
     "Raging Storm"        :  [[14,10,"–" ,1,3   ], "Aymr only; if attack lands, user can move again, effective against Dragon foes."],
     "Flickering Flower"   :  [[10,10,10,1,3     ], "Emperor only; prevents foe from moving for 1 turn?"],
-    "War Master’s Strike" :  [[3,30,"–" ,1,5    ], "War Master only; effective against all foes."],
+    "War Master's Strike" :  [[3,30,"–" ,1,5    ], "War Master only; effective against all foes."],
     "Curved Shot"         :  [[1,30,"–" ,"2~3",3], "–"],
     "Deadeye"             :  [[6,"–","–","3~5",5], "–"],
     "Heavy Draw"          :  [[8,10,"–" ,2,5    ], "–"],
@@ -117,7 +117,7 @@ var combat_arts = {
     "Break Shot"          :  [[4,5,"–" ,"2~3",3 ], "After combat, inflicts Def -5 on foe for 1 turn."],
     "Schism Shot"         :  [[4,15,"–" ,"2~3",3], "After combat, inflicts Res -5 on foe for 1 turn."],
     "Fallen Star"         :  [[10,30,10,"2~3",3 ], "Failnaught only; avoids all attacks during the next round of combat; effective against Dragon foes."],
-    "Hunter’s Volley"     :  [[1,15,10,"2~3",5  ], "Sniper only; triggers 2 consecutive hits."],
+    "Hunter's Volley"     :  [[1,15,10,"2~3",5  ], "Sniper only; triggers 2 consecutive hits."],
     "Wind God"            :  [[5,20,"–" ,"2~5",3], "Barbarossa only."],
     "Draining Blow"       :  [[5,20,"–" ,1,3    ], "Restores HP equal to 50% of the damage inflicted to the enemy."],
     "Mighty Blow"         :  [[10,-5,20,1,3     ], "–"],
@@ -155,8 +155,6 @@ var universal_arts =[
     'Shove',
     'Reposition',
     'Draw Back',
-    'Triangle Attack',
-
 ]
 
 
@@ -176,7 +174,7 @@ var allabilities = {
     "Authority Lv 3"        : ["Grants Mt +6 with gambits.",    "Raise Authority skill level to C+"],
     "Authority Lv 4"        : ["Grants Mt +8 with gambits.",    "Raise Authority skill level to B+"],
     "Authority Lv 5"        : ["Grants Mt +10 with gambits.",    "Raise Authority skill level to A+"],
-    "Avo +10"               : ["Increases Avo by 10.",    "Class: Pegasus Knight, Falcon Knight, Wyvern Lord"],
+    "Avoid +10"               : ["Increases Avo by 10.",    "Class: Pegasus Knight, Falcon Knight, Wyvern Lord"],
     "Axe Avo +20"           : ["Grants Avo +20 when using an axe.", ""],
     "Axe Crit +10"          : ["Grants Crit +10 when using an axe.",    "Raise Axe skill level to S, Class: Warrior"],
     "Axe Prowess Lv 1"      : ["Grants Hit +7, Avo +5, and Crit Avo +5 when using an axe.",    "Raise Axe skill level to E+"],
@@ -292,7 +290,7 @@ var allabilities = {
     "Leicester Lineage+": ["Allows unit to pass through spaces occupied by foes. Multiplies experience earned by 1.2.",    "Personal: Claude (from Part 2)"],
     "Lethality": ["Chance to instantly kill a foe when dealing damage. Trigger % = 0.25 x Dex.",    "Class mastered: Assassin"],
     "Lifetaker": ["Unit recovers HP equal to 50% of damage dealt after defeating a foe.",    "Class mastered: Dark Bishop"],
-    "Lily's Poise": ["Adjacent allies take 3 less damage during combat.",    "Personal: Flayn"],
+    "Lily’s Poise": ["Adjacent allies take 3 less damage during combat.",    "Personal: Flayn"],
     "Live to Serve": ["When healing an ally with white magic, unit recovers the same amount of HP.",    "Personal: Mercedes"],
     "Lockpick": ["Allows unit to open doors and chests without keys.",    "Personal: Ashe"],
     "Locktouch": ["Allows unit to open doors and chests without keys.",    "Class: Thief, Assassin"],
